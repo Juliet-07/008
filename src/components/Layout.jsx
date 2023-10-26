@@ -1,30 +1,13 @@
 // https://preline.co/docs/sidebar.html
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { Menu } from "antd";
-import {
-  BsArrowLeftShort,
-  BsChevronDown,
-  BsFillPieChartFill,
-  BsCart4,
-} from "react-icons/bs";
-import {
-  MdDashboard,
-  MdOutlineSettingsApplications,
-  MdOutlineConnectWithoutContact,
-  MdQuestionAnswer,
-  MdOutlineLogout,
-} from "react-icons/md";
-import { GoFileDirectory } from "react-icons/go";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { BsArrowLeftShort } from "react-icons/bs";
+import { MdDashboard, MdOutlineSettingsApplications } from "react-icons/md";
+import { GoOrganization } from "react-icons/go";
 import { GiBookmark } from "react-icons/gi";
-import {
-  FaCashRegister,
-  FaJournalWhills,
-  FaPeopleArrows,
-} from "react-icons/fa";
-import { FcOpenedFolder, FcManager } from "react-icons/fc";
-import { FiSettings } from "react-icons/fi";
-import { RiCustomerService2Line } from "react-icons/ri";
+import { FcManager } from "react-icons/fc";
+import { IoMdSchool } from "react-icons/io";
 import { SiFormstack } from "react-icons/si";
 import Icon from "../assets/ICON-PNG.png";
 import Header from "./Header";
@@ -32,8 +15,10 @@ import Footer from "./Footer";
 import TextSlides from "./TextSlides";
 
 const Layout = ({ children }) => {
+  const APP_ID = import.meta.env.VITE_REACT_APP_APP_ID;
+  const users = JSON.parse(localStorage.getItem("userInfo"));
+  const navigate = useNavigate();
   const [open, setOpen] = useState(true);
-  const [submenuOpen, setSubmenuOpen] = useState(false);
   const Menus = [
     { title: "Overview", path: "/dashboard" },
     {
@@ -42,89 +27,26 @@ const Layout = ({ children }) => {
       path: "/applications",
     },
     {
-      title: "Customer Service",
-      icon: <RiCustomerService2Line />,
-      path: "/customer-service",
-    },
-    {
-      title: "Data Processing",
-      icon: <FcOpenedFolder />,
-      path: "/dataProcessing",
-    },
-    {
-      title: "Directories ",
-      icon: <FaJournalWhills />,
-      path: "/directories",
-    },
-    {
-      title: "Employee Connect",
-      icon: <FaPeopleArrows />,
-      path: "/employee-connect",
-    },
-    {
-      title: "Enquiries",
-      icon: <MdQuestionAnswer />,
-      path: "/enquiries",
-    },
-    {
-      title: "Forms & Register",
+      title: "Business Processes",
       icon: <SiFormstack />,
       path: "/forms",
     },
-    // {
-    //   title: "Performance Evaluation",
-    //   icon: <BsFillPieChartFill />,
-    //   path: "/performanceEvaluation",
-    // },
+    {
+      title: "Forms & Templates",
+      icon: <SiFormstack />,
+      path: "/forms",
+    },
+    {
+      title: "PKE Materials",
+      icon: <IoMdSchool />,
+      path: "/premiumKnowledgeExchange",
+    },
     {
       title: "Policies & Procedure",
       icon: <GiBookmark />,
       path: "/policies",
     },
     { title: "Profile Manager", path: "/manager", icon: <FcManager /> },
-    // {
-    //   title: "Requisitions",
-    //   icon: <BsCart4 />,
-    //   path: "/requisitions",
-    //   submenu: true,
-    //   submenuItems: [
-    //     {
-    //       title: "FCUBS",
-    //       path: "https://premiumfcubs.premiumtrustbank.com/FCJNeoWeb",
-    //     },
-    //     {
-    //       title: "OBIEE",
-    //       path: "http://obiee.premiumtrustbank.com:9502/xmlpserver",
-    //     },
-    //     {
-    //       title: "NIBSS Document Verification Portal",
-    //       path: "https://172.18.5.50/",
-    //     },
-    //     {
-    //       title: "PEP",
-    //       path: "https://apps.powerapps.com/play/e1210308-4253-40fe-bf2e-e7e287a1f406?tenantId=ea5cc842-6f08-4924-bd60-e99929d9531b",
-    //     },
-    //     {
-    //       title: "SOFTAML",
-    //       path: "http://192.168.201.2/softaml_premiumtrust/login",
-    //     },
-    //     {
-    //       title: "BVN Validation Portal",
-    //       path: "https://bvnportal.premiumtrustbank.com/",
-    //     },
-    //     {
-    //       title: "Cooperate Internet Banking",
-    //       path: "https://cib.premiumtrustbank.com/user/login",
-    //     },
-    //   ],
-    // },
-    // { title: "Settings", path: "/settings", icon: <FiSettings /> },
-    // {
-    //   title: "Logout",
-    //   path: "/",
-    //   icon: <MdOutlineLogout />,
-    //   // spacing: true,
-    // },
   ];
   const activeLink =
     "mx-4 flex justify-start items-center text-white text-2xl space-x-1 font-bold bg-red-600 rounded-xl";
@@ -176,6 +98,40 @@ const Layout = ({ children }) => {
       </NavLink>
     );
   };
+  const handleUserARRoleRoute = () => {
+    let email = users.givenname; //supervisor
+    // let email = "Damilola.Falonipe";
+    // let email = "Sarah.Omoike";    //approval-one
+    // let email = "Olatunji.Oseni";  //approval-two
+    // let email = "Amechi.Ojei";     //approval-three
+    let user;
+    axios
+      .get(
+        `http://192.168.201.57:449/api/UserApplications/getUserRoleByEmail&AppId?AppId=${APP_ID}&email=${email}@premiumtrustbank.com`
+      )
+      .then((response) => {
+        console.log(response.data, "User Info AR");
+        user = response.data;
+        if (
+          user.data === null &&
+          user.responseMessage === "User Not Profiled"
+        ) {
+          return navigate("/access-requests");
+        }
+        if (user.roleDescription === "Supervisor") {
+          return navigate("/access-requests/supervisorPage");
+        }
+        if (user.roleDescription === "ApprovalOne") {
+          return navigate("/access-requests/CISOPage");
+        }
+        if (user.roleDescription === "ApprovalTwo") {
+          return navigate("/access-requests/CCOPage");
+        }
+        if (user.roleDescription === "ApprovalThree") {
+          return navigate("/access-requests/CIOPage");
+        }
+      });
+  };
   return (
     <div className="w-full h-full">
       <div className="flex">
@@ -210,11 +166,20 @@ const Layout = ({ children }) => {
               <SidebarLinks key={index} menu={menu} />
             ))}
           </ul>
-          <Footer />
+          <div
+            className="text-white flex items-center gap-x-2 cursor-pointer p-2.5 hover:bg-red-600 hover:text-white hover:font-semibold rounded-md mt-2 mx-4"
+            onClick={handleUserARRoleRoute}
+          >
+            <span className="block float-left">
+              <GoOrganization size={30} />
+            </span>
+            User Access Request
+          </div>
+          {/* <Footer /> */}
         </div>
         {/* Content */}
         <div className="w-full bg-gray-50">
-          <Header text="Dashboard" />
+          <Header />
           <main>{children}</main>
         </div>
       </div>
