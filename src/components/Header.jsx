@@ -40,16 +40,16 @@ const Header = () => {
       <div className="w-full bg-red-600 h-20 flex items-center justify-between px-10">
         <div className="text-white font-semibold text-xl">
           {hour < 12
-            ? "Good Morning "
+            ? "Good Morning, "
             : hour < 17
-            ? "Good Afternoon "
-            : "Good Evening "}
+            ? "Good Afternoon, "
+            : "Good Evening, "}
           {user.name}
         </div>
 
         <Menu as="div" className="relative ml-3">
           <div>
-            <Menu.Button className="flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#FF1C1D]">
+            <Menu.Button className="flex rounded-full text-sm focus:outline-none">
               <span className="sr-only">Open user menu</span>
               {/* <div className="w-14 h-14 bg-gray-100 m-4 rounded-full flex items-center justify-center">
                   <IoPersonSharp size={20} />

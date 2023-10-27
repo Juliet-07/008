@@ -186,7 +186,7 @@ const Applications = () => {
     <>
       {/* <div className="w-full h-[89vh] bg-gradient-to-r from-gray-500 via-red-500 to-black"> */}
       <div className="w-full h-full">
-        <div className="">
+        <div className="overflow-auto">
           <div className="grid grid-cols-3 gap-10 md:gap-0 text-black text-lg font-medium">
             {applicationMenu.map((menu) => (
               <a href={menu.path} target="_blank" rel="noopener noreferrer">
@@ -197,13 +197,13 @@ const Applications = () => {
               </a>
             ))}
 
-            <div
+            {/* <div
               className="flex flex-col items-center justify-center text-center w-32 h-32 rounded-xl shadow-xl shadow-red-300 m-4 bg-white text-red-600 cursor-pointer"
               onClick={handlePndValidation}
             >
               <IoPeopleSharp size={40} color="red" />
               PND Portal
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
