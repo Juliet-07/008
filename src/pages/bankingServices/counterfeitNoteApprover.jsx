@@ -6,6 +6,7 @@ import { MdSkipPrevious, MdSkipNext } from "react-icons/md";
 import Modal from "../../components/Modal";
 
 const CounterfeitApprover = () => {
+  const apiURL = import.meta.env.VITE_REACT_APP_DUDCHEQUE;
   const user = JSON.parse(localStorage.getItem("userInfo"));
   const tableRef = useRef(null);
   const [pendingTransaction, setPendingTransaction] = useState([]);
@@ -22,7 +23,7 @@ const CounterfeitApprover = () => {
   const numbers = [...Array(npages + 1).keys()].slice(1);
 
   const getUserInfo = () => {
-    const url = `${process.env.REACT_APP_DUDCHEQUE}/GetUserInfor?UserID=${user.givenname}`;
+    const url = `${apiURL}/GetUserInfor?UserID=${user.givenname}`;
     axios.get(url).then(async (response) => {
       const data = response.data.result;
       console.log({ data }, "user info");
@@ -33,7 +34,7 @@ const CounterfeitApprover = () => {
   };
 
   const getPendingTransaction = (branchCode) => {
-    const url = `${process.env.REACT_APP_DUDCHEQUE}/GetCounterfeitNotePendingTransaction?BranchCode=${branchCode}`;
+    const url = `${apiURL}/GetCounterfeitNotePendingTransaction?BranchCode=${branchCode}`;
     try {
       axios.get(url).then((response) => {
         setPendingTransaction(response.data.result);
@@ -62,7 +63,7 @@ const CounterfeitApprover = () => {
     }
   };
 
-  const url = `${process.env.REACT_APP_DUDCHEQUE}/AuthorisedCounterfeitNote`;
+  const url = `${apiURL}/AuthorisedCounterfeitNote`;
 
   const handleAuthorization = async (e, note) => {
     const payload = {
@@ -100,9 +101,9 @@ const CounterfeitApprover = () => {
     <>
       <div className="flex flex-col items-center justify-center mt-6">
         <div className="font-bold text-2xl uppercase mb-2">
-          Counterfeit Note for approval
+          Counterfeit Note Transactions for approval
         </div>
-        <div className="w-[1294px] rounded-lg bg-white p-4">
+        <div className="w-[1190px] rounded-lg bg-white p-4">
           <div className="flex flex-col items-center justify-center">
             <table
               ref={tableRef}

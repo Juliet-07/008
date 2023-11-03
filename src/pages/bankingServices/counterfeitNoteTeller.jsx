@@ -7,8 +7,10 @@ import BranchInfo from "../../components/BranchDetails";
 import Icon from "../../assets/icon.png";
 
 const CounterfeitNoteTeller = () => {
+  const apiURL = import.meta.env.VITE_REACT_APP_DUDCHEQUE;
   const user = JSON.parse(localStorage.getItem("userInfo"));
   const { handleSubmit } = useForm();
+  const [userBranch, setUserBranch] = useState("");
   const [branchCode, setBranchCode] = useState("");
   const [denomination, setDenomination] = useState("");
   const [currencyNumber, setCurrencyNumber] = useState("");
@@ -26,10 +28,6 @@ const CounterfeitNoteTeller = () => {
     console.log(denomination, "selected note");
   };
 
-  useEffect(() => {
-    console.log(denomination);
-  }, [file, denomination]);
-
   const getBase64 = (file) => {
     return new Promise((resolve) => {
       let baseURL = "";
@@ -38,11 +36,18 @@ const CounterfeitNoteTeller = () => {
       // to convert the file to base64
       reader.readAsDataURL(file);
       reader.onload = () => {
-        console.log(reader, "fileInfo Object");
         baseURL = reader.result;
-        console.log(baseURL, "what is here");
         resolve(baseURL);
       };
+    });
+  };
+
+  const getUserInfo = () => {
+    const url = `${apiURL}/GetUserInfor?UserID=${user.givenname}`;
+    axios.get(url).then(async (response) => {
+      const data = response.data.result;
+      console.log({ data }, "user info");
+      setUserBranch(data.branchCode);
     });
   };
 
@@ -51,39 +56,33 @@ const CounterfeitNoteTeller = () => {
     console.log(e.target.files, "image");
     const image = e.target.files[0];
     setFile(image);
-    // if (image) {
-    //   getBase64(image)
-    //     .then((result) => {
-    //       image["base64"] = result;
-    //       setFile(image);
-    //       setBase64URL(result);
-    //       console.log(base64URL, "what is the result");
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // } else {
-    //   setFile(null);
-    //   setBase64URL("");
-    // }
+
+    getBase64(image).then((base64URL) => {
+      console.log(base64URL, "Base64 URL");
+    });
   };
+
+  useEffect(() => {
+    console.log(denomination);
+    getUserInfo();
+  }, [file, userBranch, denomination]);
 
   const resetForm = () => {
     setBranchCode("");
     setDenomination("");
-    // setFile({});
+    setFile({});
     setCurrencyNumber("");
   };
-
   const insertConterfeitDetails = () => {
     setLoading(true);
-    const url = `${process.env.REACT_APP_DUDCHEQUE}/InsertCounterfeitNote`;
+    const url = `${apiURL}/InsertCounterfeitNote`;
     const formData = new FormData();
     formData.append("BRANCH", branchCode);
     formData.append("DENOMINATION", denomination);
     formData.append("FILES", file);
     formData.append("CURRENCYNUMBER", currencyNumber);
     formData.append("INITIATOR_BY", user.name);
+    formData.append("INITIATOR_BRANCH", userBranch);
     setTimeout(() => {
       setLoading(false);
       axios.post(url, formData).then((response) => {
@@ -150,7 +149,8 @@ const CounterfeitNoteTeller = () => {
               {file && (
                 <div>
                   <p>Selected File: {file.name}</p>
-                  <img src={URL.createObjectURL(file)} alt="Selected File" />
+                  <img src={getBase64(file)} alt="Selected File" />
+                  {/* <img src={URL.createObjectURL(file)} alt="Selected File" /> */}
                 </div>
               )}
             </div>

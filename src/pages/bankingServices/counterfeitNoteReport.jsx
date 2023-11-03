@@ -6,6 +6,7 @@ import { BiDotsVertical, BiRightArrow, BiDownArrow } from "react-icons/bi";
 import { MdSkipPrevious, MdSkipNext } from "react-icons/md";
 
 const CounterfeitNoteReport = () => {
+  const apiURL = import.meta.env.VITE_REACT_APP_DUDCHEQUE;
   const tableRef = useRef(null);
   const [branches, setBranches] = useState([]);
   const [showBranchType, setShowBranchType] = useState([]);
@@ -18,7 +19,7 @@ const CounterfeitNoteReport = () => {
   const numbers = [...Array(npages + 1).keys()].slice(1);
 
   const getCounterfeitNote = () => {
-    const url = `${process.env.REACT_APP_DUDCHEQUE}/GetCounterfeitNote`;
+    const url = `${apiURL}/GetCounterfeitNote`;
     axios.get(url).then((response) => {
       console.log(response.data, "CounterfeitNote Report");
       let branches = response.data.result.branch;
@@ -65,16 +66,16 @@ const CounterfeitNoteReport = () => {
           counterfeitNote report
         </div>
         {/* individual accounts */}
-        <div className="w-[1294px] rounded-lg bg-white p-4">
-          {/* <div className="flex items-end justify-end mb-4">
+        <div className="w-[1200px] rounded-lg bg-white p-4">
+          <div className="flex items-end justify-end mb-4">
             <div
-              className="flex items-center justify-center cursor-pointer w-[170px] h-[45px] bg-[#db1600] text-white font-semibold rounded"
+              className="flex items-center justify-center cursor-pointer w-[150px] h-[45px] bg-[#db1600] text-white font-semibold rounded"
               onClick={onDownload}
             >
               <AiOutlineDownload size={20} />
               <span>Export as .xlsx</span>
             </div>
-          </div> */}
+          </div>
 
           <div className="flex flex-col items-center justify-center">
             <table
@@ -127,17 +128,39 @@ const CounterfeitNoteReport = () => {
                                 <th className="p-4">Date Initiated</th>
                                 <th className="p-4">Approver</th>
                                 <th className="p-4">Date Approved</th>
+                                <th>
+                                  <div
+                                    className="flex items-center justify-center cursor-pointer w-20 h-10 bg-[#db1600] text-white rounded"
+                                    onClick={onDownload}
+                                  >
+                                    <AiOutlineDownload size={20} />
+                                    <span className="pl-2"> as .xlsx</span>
+                                  </div>
+                                </th>
                               </thead>
                               <tbody>
                                 {branch.branchtype.map((branchType) => (
                                   <tr key={branchType.id}>
                                     {/* <td>{branchType.branchcode}</td> */}
-                                    <td className="p-2">{branchType.denomination}</td>{" "}
-                                    <td className="p-2"> {branchType.currencynumber}</td>{" "}
-                                    <td className="p-2">{branchType.initiatoR_BY}</td>{" "}
-                                    <td className="p-2">{branchType.initiatoR_DATE}</td>{" "}
-                                    <td className="p-2">{branchType.approveD_BY}</td>{" "}
-                                    <td className="p-2">{branchType.approvE_DATE}</td>{" "}
+                                    <td className="p-2">
+                                      {branchType.denomination}
+                                    </td>{" "}
+                                    <td className="p-2">
+                                      {" "}
+                                      {branchType.currencynumber}
+                                    </td>{" "}
+                                    <td className="p-2">
+                                      {branchType.initiatoR_BY}
+                                    </td>{" "}
+                                    <td className="p-2">
+                                      {branchType.initiatoR_DATE}
+                                    </td>{" "}
+                                    <td className="p-2">
+                                      {branchType.approveD_BY}
+                                    </td>{" "}
+                                    <td className="p-2">
+                                      {branchType.approvE_DATE}
+                                    </td>{" "}
                                   </tr>
                                 ))}
                               </tbody>
@@ -185,7 +208,7 @@ const CounterfeitNoteReport = () => {
                   />
                 </li>
                 {numbers.map((n, i) => (
-                  <li key={i} className="text-xl p-2">
+                  <li key={i} className="p-2">
                     <a href="#" onClick={() => changeCurrentPage(n)}>
                       {n}
                     </a>

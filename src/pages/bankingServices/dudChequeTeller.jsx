@@ -102,7 +102,7 @@ const TellerHomePage = () => {
               </Typography>
             </div>
             <div className="flex w-full shrink-0 gap-2 md:w-max">
-              <Link to="/DudChequeForm">
+              <Link to="/applications/DudChequeForm">
                 <div className="w-full h-10 rounded  p-2 bg-[#2B2E35] text-white flex items-center justify-center font-medium">
                   <AiFillFileAdd size={30} />
                   <span className="ml-2">Log DudCheque</span>

@@ -175,7 +175,7 @@ const Dashboard = () => {
                       className="flex items-center justify-between"
                     >
                       <p>{item?.employee_Name}</p>
-                      <div className="bg-red-600 h-10 p-2 text-white rounded-lg text-base font-normal cursor-pointer">
+                      <div className="bg-red-600 h-10 p-2 text-white rounded-lg text-base font-normal cursor-pointer my-1">
                         Send a message
                       </div>
                     </div>

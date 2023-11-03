@@ -634,7 +634,7 @@ const DudChequeTeller = () => {
           </div>
           {individual && (
             <>
-              <div className="mb-2 font-bold text-xl flex items-center justify-center">
+              <div className="my-4 font-bold text-xl flex items-center justify-center">
                 Log KYC for Individual Account
               </div>
               <div className="w-full shadow-xl border rounded border-red-600 text-red-600 font-medium text-sm p-4">
@@ -1041,7 +1041,7 @@ const DudChequeTeller = () => {
           )}
           {corporate && (
             <>
-              <div className="mb-2 font-bold text-xl flex items-center justify-center">
+              <div className="my-4 font-bold text-xl flex items-center justify-center">
                 Log KYC for Corporate Account
               </div>
               <div className="w-full shadow-xl border rounded border-red-600 text-red-600 font-medium text-sm p-4">

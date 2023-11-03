@@ -8,6 +8,7 @@ import Modal from "../../components/Modal";
 import { toast } from "react-toastify";
 
 const DudChequeApprover = () => {
+  const apiURL = import.meta.env.VITE_REACT_APP_DUDCHEQUE;
   const user = JSON.parse(localStorage.getItem("userInfo"));
   const tableRef = useRef(null);
   const [pendingTransaction, setPendingTransaction] = useState([]);
@@ -23,7 +24,7 @@ const DudChequeApprover = () => {
   const numbers = [...Array(npages + 1).keys()].slice(1);
 
   const getUserInfo = () => {
-    const url = `${process.env.REACT_APP_DUDCHEQUE}/GetUserInfor?UserID=${user.givenname}`;
+    const url = `${apiURL}/GetUserInfor?UserID=${user.givenname}`;
     axios.get(url).then(async (response) => {
       const data = response.data.result;
       console.log({ data }, "user info");
@@ -34,7 +35,7 @@ const DudChequeApprover = () => {
   };
 
   const getPendingTransaction = (branchCode) => {
-    const url = `${process.env.REACT_APP_DUDCHEQUE}/GetDudChequePendingTransaction?Initialised_BranchCode=${branchCode}`;
+    const url = `${apiURL}/GetDudChequePendingTransaction?Initialised_BranchCode=${branchCode}`;
     axios.get(url).then((response) => {
       console.log(response.data, "Pending Transaction");
       setPendingTransaction(response.data.result);
@@ -59,7 +60,7 @@ const DudChequeApprover = () => {
     }
   };
 
-  const url = `${process.env.REACT_APP_DUDCHEQUE}/AuthorisedDudCheque`;
+  const url = `${apiURL}/AuthorisedDudCheque`;
 
   const handleAuthorization = async (e, dud) => {
     const payload = {
@@ -101,9 +102,9 @@ const DudChequeApprover = () => {
     <>
       <div className="flex flex-col items-center justify-center mt-6">
         <div className="font-bold text-2xl uppercase mb-2">
-          dud cheque report for approval
+          dud cheque transaction for approval
         </div>
-        <div className="w-[1294px] rounded-lg bg-white p-4">
+        <div className="w-[1190px] rounded-lg bg-white p-4 max-w-full overflow-x-auto">
           <div className="flex flex-col items-center justify-center">
             <table
               ref={tableRef}
@@ -319,7 +320,7 @@ const DudChequeApprover = () => {
                   />
                 </li>
                 {numbers.map((n, i) => (
-                  <li key={i} className="text-lg p-2">
+                  <li key={i} className="p-2">
                     <a href="#" onClick={() => changeCurrentPage(n)}>
                       {n}
                     </a>

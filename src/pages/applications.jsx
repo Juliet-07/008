@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AiOutlinePlus } from "react-icons/ai";
 import {
@@ -10,7 +10,7 @@ import {
   BsPersonCircle,
 } from "react-icons/bs";
 import { FaSearchDollar, FaLaptopCode, FaMoneyCheck } from "react-icons/fa";
-import { FcCustomerSupport } from "react-icons/fc";
+import { FcCustomerSupport, FcIdea } from "react-icons/fc";
 import { IoPeopleSharp } from "react-icons/io5";
 import {
   MdOutlineApproval,
@@ -159,13 +159,13 @@ const Applications = () => {
       const response = await axios.get(url);
       console.log(response.data.result);
       if (response.data.result.role === "INPUTER") {
-        return navigate("/DudChequeTeller");
+        return navigate("/applications/DudChequeTeller");
       }
       if (response.data.result.role === "APPROVER") {
-        return navigate("/DudChequeApprover");
+        return navigate("/applications/DudChequeApprover");
       }
       if (response.data.result.role === "REVIEWER") {
-        return navigate("/bankingServices/reviewer-page");
+        return navigate("/applications/DudChequeReviewer");
       } else {
         return alert("You are not allowed to view this page.");
       }
@@ -179,13 +179,13 @@ const Applications = () => {
       const response = await axios.get(url);
       console.log(response.data.result);
       if (response.data.result.role === "INPUTER") {
-        return navigate("/counterfeitNoteTeller");
+        return navigate("/applications/counterfeitNoteTeller");
       }
       if (response.data.result.role === "APPROVER") {
-        return navigate("/counterfeitNoteApprover");
+        return navigate("/applications/counterfeitNoteApprover");
       }
       if (response.data.result.role === "REVIEWER") {
-        return navigate("/counterfeitNoteReport");
+        return navigate("/applications/counterfeitNoteReport");
       }
     } catch (error) {
       console.log(error);
@@ -252,6 +252,14 @@ const Applications = () => {
                 <FaMoneyCheck size={30} color="red" />
               </p>
             </div>
+            <Link to="/applications/ideaHub">
+              <div className="w-[300px] h-20 bg-white flex items-center justify-between rounded-lg m-4 p-4 border border-gray-600 cursor-pointer">
+                <p>Idea Hub</p>
+                <p>
+                  <FcIdea size={30} />
+                </p>
+              </div>
+            </Link>
             <div
               className="w-[300px] h-20 bg-white flex items-center justify-between rounded-lg m-4 p-4 border border-gray-600 cursor-pointer"
               onClick={handlePndValidation}
