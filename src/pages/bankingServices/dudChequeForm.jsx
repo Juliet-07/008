@@ -174,6 +174,8 @@ const DudChequeTeller = () => {
         customerNo: data.uniqueCustomerId,
         accountBranch: data.branchName,
         ac_Ccy: data.currency,
+        issuerName: data.accountName,
+        issuerNo: data.accountNumber,
       });
       if (data.ccustomer_type === "Individual") {
         toast.success("Individual Account");
@@ -492,7 +494,6 @@ const DudChequeTeller = () => {
                     type="text"
                     name="issuerNo"
                     value={issuerNo}
-                    onChange={handleChange}
                   />
                 </div>
                 <div class="w-full md:w-1/2 px-3">
@@ -508,7 +509,6 @@ const DudChequeTeller = () => {
                     type="text"
                     name="issuerName"
                     value={issuerName}
-                    onChange={handleChange}
                   />
                 </div>
               </div>

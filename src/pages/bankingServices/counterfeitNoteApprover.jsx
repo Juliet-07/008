@@ -103,7 +103,7 @@ const CounterfeitApprover = () => {
         <div className="font-bold text-2xl uppercase mb-2">
           Counterfeit Note Transactions for approval
         </div>
-        <div className="w-[1190px] rounded-lg bg-white p-4">
+        <div className="w-[1000px] 2xl:w-[1190px] rounded-lg bg-white p-4">
           <div className="flex flex-col items-center justify-center">
             <table
               ref={tableRef}

@@ -27,9 +27,9 @@ const Applications = () => {
   const apiURL = import.meta.env.VITE_REACT_APP_DUDCHEQUE;
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("userInfo"));
-  let id = user.givenname;
+  // let id = user.givenname;
   // let id = "bsm.branch";
-  // let id = "review.hq";
+  let id = "review.hq";
 
   // const [email, setEmail] = useState("");
   // const [email, setEmail] = useState("tommy.lee@premiumtrustbank.com");

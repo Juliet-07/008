@@ -104,7 +104,7 @@ const DudChequeApprover = () => {
         <div className="font-bold text-2xl uppercase mb-2">
           dud cheque transaction for approval
         </div>
-        <div className="w-[1190px] rounded-lg bg-white p-4 max-w-full overflow-x-auto">
+        <div className="w-[1080px] 2xl:w-[1190px] rounded-lg bg-white p-4 max-w-full overflow-x-auto">
           <div className="flex flex-col items-center justify-center">
             <table
               ref={tableRef}
