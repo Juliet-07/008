@@ -67,7 +67,7 @@ const Applications = () => {
     },
     {
       icon: <BsClipboardCheck size={30} />,
-      path: "https://apps.powerapps.com/play/e/default-ea5cc842-6f08-4924-bd60-e99929d9531b/a/bcbf0888-36c7-4786-a328-5aedc3fd049d?tenantId=ea5cc842-6f08-4924-bd60-e99929d9531b&source=portal",
+      path: "https://apps.powerapps.com/play/e/default-ea5cc842-6f08-4924-bd60-e99929d9531b/a/db1230cd-a5ad-483c-a44b-74a99dbcb975?tenantId=ea5cc842-6f08-4924-bd60-e99929d9531b&sourcetime=2023-08-04%2012%3A43%3A25Z",
       title: "Appraisal Portal",
     },
     {
@@ -91,6 +91,11 @@ const Applications = () => {
       title: "E-cashier",
     },
     {
+      icon: <BsCashCoin size={30} />,
+      path: "http://192.168.201.80:8080/bpm-0/application.ms",
+      title: "Expense & Cash Advance",
+    },
+    {
       icon: <img src={FLEXCUBE} className="h-20" alt="flexcube logo" />,
       path: "https://premiumfcubs.premiumtrustbank.com/FCJNeoWeb/",
       title: "Flexcube",
@@ -109,6 +114,11 @@ const Applications = () => {
       icon: <FaSearchDollar size={30} />,
       path: "https://192.168.201.43:19443/main.do",
       title: "Moni Manager Portal",
+    },
+    {
+      icon: <BsClipboardCheck size={30} />,
+      path: "https://apps.powerapps.com/play/e/default-ea5cc842-6f08-4924-bd60-e99929d9531b/a/bcbf0888-36c7-4786-a328-5aedc3fd049d?tenantId=ea5cc842-6f08-4924-bd60-e99929d9531b&source=portal",
+      title: "Monthly Performance Check",
     },
     {
       icon: <img src={NIBSS} className="h-20" alt="nibss logo" />,

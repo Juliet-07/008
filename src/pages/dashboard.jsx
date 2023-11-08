@@ -10,7 +10,7 @@ import Slider from "../components/Slider";
 const Dashboard = () => {
   const navigate = useNavigate();
   const APP_ID = import.meta.env.VITE_REACT_APP_APP_ID;
-  const baseURL = import.meta.env.VITE_REACT_APP_AD_BASEURL;
+  const xlURL = import.meta.env.VITE_REACT_APP_AD_xlURL;
   const bdayURL = import.meta.env.VITE_REACT_APP_BIRTHDAY;
   const users = JSON.parse(localStorage.getItem("userInfo"));
   const [user, setUser] = useState("");
@@ -40,7 +40,7 @@ const Dashboard = () => {
     if (_email) {
       await axios
         .post(
-          `${baseURL}/GetUserInfoByEmail?email=${_email}@premiumtrustbank.com`
+          `${xlURL}/GetUserInfoByEmail?email=${_email}@premiumtrustbank.com`
         )
         .then((response) => {
           console.log(response.data, "userdetails");
@@ -110,30 +110,27 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="w-full h-full">
-        {/* first section */}
-        <div className="flex items-center justify-between 2xl:justify-evenly 2xl:mx-0 2xl:my-6 m-6">
-          <div className="flex items-center justify-center bg-gray-400/50 rounded-xl shadow-lg p-2">
-            {/* <div className="bg-gradient-to-r from-red-600 to-gray-500 w-20 h-20 text-3xl text-black text-center p-2 rounded-full mx-4 my-2 flex items-center justify-center font-semibold">
-            {initials}
-          </div> */}
+      <div className="w-full h-full px-4">
+
+          <div className="flex items-center bg-white/50 rounded-xl shadow-xl mt-4">
             <div className="flex-col p-4">
-              <p className="font-bold text-xl">{user.name}</p>
-              <p className="flex text-base font-bold">
-                <span className="mr-2 font-medium">Role: {role}</span>
+              {/* <p className="font-bold text-xl">{user.name}</p> */}
+              <p className="flex text-xl font-bold">
+                Role:
+                <span className="mr-2 font-medium pl-2"> {role}</span>
               </p>
-              <p className="flex text-base font-bold">
-                <span className="mr-2 font-medium">
-                  Department: {department}
-                </span>
+              <p className="flex text-xl font-bold">
+                Department:
+                <span className="mr-2 font-medium pl-2"> {department}</span>
               </p>
-              <p className="flex text-base font-bold">
-                <span className="mr-2 font-medium">Location: {branch}</span>
+              <p className="flex text-xl font-bold">
+                Location:
+                <span className="mr-2 font-medium pl-2"> {branch}</span>
               </p>
             </div>
           </div>
-          <div className="flex items-center justify-center w-[500px] bg-gray-400/50 rounded-xl">
-            <div className="w-[300px]">
+          <div className="flex items-center bg-white/50 rounded-xl shadow-xl mt-4">
+            <div className="flex-col p-4">
               <Carousel
                 infiniteLoop
                 autoPlay
@@ -149,45 +146,36 @@ const Dashboard = () => {
               </Carousel>
             </div>
           </div>
-          <div className="w-[300px] bg-red-600 hidden 2xl:block">
-            {/* <img
-              src={Avatar}
-              alt="person with laptop"
-              className="w-full"
-            /> */}
-            {/* <Slider/> */}
-            {/* slider */}
-          </div>
-        </div>
-        {/* second section */}
-        <div className="flex items-center justify-between mx-6 2xl:mx-0 2xl:justify-evenly">
-          <Calendar />
-          <div className="w-[500px] h-[320px] bg-white rounded-t-xl flex-col shadow-md shadow-red-200 ml-4">
-            <div className="h-[52px] bg-red-600 rounded-t-xl text-xl text-white font-medium p-4">
-              Who is celebrating?
+          <div className="flex items-center justify-between mt-4">
+            <div className="w-[300px] 2xl:w-[500px]">
+              <Slider />
             </div>
-            <div className="bg-white flex flex-col p-4 font-semibold">
-              {Array.isArray(birthdays) && birthdays.length ? (
-                <div>
-                  {birthdays.map((item, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between"
-                    >
-                      <p>{item?.employee_Name}</p>
-                      <div className="bg-red-600 h-10 p-2 text-white rounded-lg text-base font-normal cursor-pointer my-1">
-                        Send a message
+            <div className="w-[300px] 2xl:w-[500px] h-[320px] bg-white rounded-t-xl flex-col shadow-md shadow-red-200 ml-4">
+              <div className="h-[52px] bg-red-600 rounded-t-xl text-xl text-white font-medium p-4">
+                Who is celebrating?
+              </div>
+              <div className="bg-white flex flex-col p-4 font-semibold">
+                {Array.isArray(birthdays) && birthdays.length ? (
+                  <div>
+                    {birthdays.map((item, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center justify-between"
+                      >
+                        <p>{item?.employee_Name}</p>
+                        <div className="bg-red-600 h-10 p-2 text-white rounded-lg text-xl font-normal cursor-pointer my-1">
+                          Send a message
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <h3>No birthdays today</h3>
-              )}
+                    ))}
+                  </div>
+                ) : (
+                  <h3>No birthdays today</h3>
+                )}
+              </div>
             </div>
           </div>
-          <div className="hidden 2xl:block w-[300px] bg-black"></div>
-        </div>
+
       </div>
     </>
   );

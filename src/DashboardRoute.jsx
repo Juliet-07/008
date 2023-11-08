@@ -11,6 +11,7 @@ import RequestForm from "./pages/bankingServices/dudChequeForm";
 import DudChequeApprover from "./pages/bankingServices/dudChequeApprover";
 import Reviewer from "./pages/bankingServices/reviewHome";
 import CounterfeitNoteTeller from "./pages/bankingServices/counterfeitNoteTeller";
+import CounterfeitNoteRequestForm from "./pages/bankingServices/counterfeitNoteForm"
 import CounterfeitApprover from "./pages/bankingServices/counterfeitNoteApprover";
 import CounterfeitNoteReport from "./pages/bankingServices/counterfeitNoteReport";
 import IdeaHub from "./pages/ideaHub/landingPage";
@@ -39,6 +40,10 @@ const DashboardRoute = () => {
           <Route
             path="/applications/counterfeitNoteTeller"
             element={<CounterfeitNoteTeller />}
+          />
+          <Route
+            path="/applications/counterfeitNoteForm"
+            element={<CounterfeitNoteRequestForm />}
           />
           <Route
             path="/applications/counterfeitNoteApprover"

@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(true);
   const Menus = [
-    { title: "Overview", path: "/dashboard" },
+    // { title: "Overview", path: "/dashboard" },
     {
       title: "Applications",
       icon: <MdOutlineSettingsApplications />,
