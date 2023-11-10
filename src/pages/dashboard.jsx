@@ -10,7 +10,7 @@ import Slider from "../components/Slider";
 const Dashboard = () => {
   const navigate = useNavigate();
   const APP_ID = import.meta.env.VITE_REACT_APP_APP_ID;
-  const xlURL = import.meta.env.VITE_REACT_APP_AD_xlURL;
+  const apiURL = import.meta.env.VITE_REACT_APP_AD_BASEURL;
   const bdayURL = import.meta.env.VITE_REACT_APP_BIRTHDAY;
   const users = JSON.parse(localStorage.getItem("userInfo"));
   const [user, setUser] = useState("");
@@ -40,7 +40,7 @@ const Dashboard = () => {
     if (_email) {
       await axios
         .post(
-          `${xlURL}/GetUserInfoByEmail?email=${_email}@premiumtrustbank.com`
+          `${apiURL}/GetUserInfoByEmail?email=${_email}@premiumtrustbank.com`
         )
         .then((response) => {
           console.log(response.data, "userdetails");

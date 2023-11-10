@@ -22,14 +22,16 @@ import FLEXCUBE from "../assets/oracle-flexcube.png";
 import ECASHIER from "../assets/e-cashierLogo.png";
 import LOGO from "../assets/icon.png";
 import { toast } from "react-toastify";
+import SplashScreen from "./ideaHub/SplashScreen";
 
 const Applications = () => {
   const apiURL = import.meta.env.VITE_REACT_APP_DUDCHEQUE;
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("userInfo"));
+  const [showSplash, setShowSplash] = useState(false);
   // let id = user.givenname;
-  // let id = "bsm.branch";
-  let id = "review.hq";
+  let id = "bsm.branch";
+  // let id = "review.hq";
 
   // const [email, setEmail] = useState("");
   // const [email, setEmail] = useState("tommy.lee@premiumtrustbank.com");
@@ -238,58 +240,78 @@ const Applications = () => {
       console.log(error);
     }
   };
+
+  const handleShowSplashScreen = () => {
+    setShowSplash(true);
+    setTimeout(() => {
+      window.location.href = "/applications/ideaHub";
+    }, 5000);
+  };
+
+  useEffect(() => {
+    return () => {
+      setShowSplash(false);
+    };
+  }, []);
+
   return (
     <>
-      {/* <div className="w-full h-[89vh] bg-gradient-to-r from-gray-500 via-red-500 to-black"> */}
-      <div className="w-full h-[89vh] overflow-auto">
-        <div>
-          <div className="grid grid-cols-3 gap-10 md:gap-0 text-black text-lg font-medium">
-            <div
-              className="w-[300px] h-20 bg-white flex items-center justify-between rounded-lg m-4 p-4 border border-gray-600 cursor-pointer"
-              onClick={handleRole}
-            >
-              <p>CounterfeitNote Portal</p>
-              <p>
-                <FaMoneyCheck size={30} color="red" />
-              </p>
-            </div>
-            <div
-              className="w-[300px] h-20 bg-white flex items-center justify-between rounded-lg m-4 p-4 border border-gray-600 cursor-pointer"
-              onClick={handleUserRole}
-            >
-              <p>DudCheque Portal</p>
-              <p>
-                <FaMoneyCheck size={30} color="red" />
-              </p>
-            </div>
-            <Link to="/applications/ideaHub">
-              <div className="w-[300px] h-20 bg-white flex items-center justify-between rounded-lg m-4 p-4 border border-gray-600 cursor-pointer">
-                <p>Idea Hub</p>
+      {showSplash && <SplashScreen />}
+      {!showSplash && (
+        <div className="w-full h-[89vh] overflow-auto">
+          <div>
+            <div className="grid grid-cols-3 gap-10 md:gap-0 text-black text-lg font-medium">
+              <div
+                className="w-[300px] h-20 bg-white flex items-center justify-between rounded-lg m-4 p-4 border border-gray-600 cursor-pointer"
+                onClick={handleRole}
+              >
+                <p>CounterfeitNote Portal</p>
                 <p>
-                  <FcIdea size={30} />
+                  <FaMoneyCheck size={30} color="red" />
                 </p>
               </div>
-            </Link>
-            <div
-              className="w-[300px] h-20 bg-white flex items-center justify-between rounded-lg m-4 p-4 border border-gray-600 cursor-pointer"
-              onClick={handlePndValidation}
-            >
-              <p>PND Portal</p>
-              <p>
-                <IoPeopleSharp size={30} color="red" />
-              </p>
-            </div>
-            {applicationMenu.map((menu) => (
-              <a href={menu.path} target="_blank" rel="noopener noreferrer">
-                <div className="w-[300px] h-20 bg-white flex items-center justify-between rounded-lg m-4 p-4 border border-gray-600 cursor-pointer">
-                  <p>{menu.title}</p>
-                  <p>{menu.icon}</p>
+              <div
+                className="w-[300px] h-20 bg-white flex items-center justify-between rounded-lg m-4 p-4 border border-gray-600 cursor-pointer"
+                onClick={handleUserRole}
+              >
+                <p>DudCheque Portal</p>
+                <p>
+                  <FaMoneyCheck size={30} color="red" />
+                </p>
+              </div>
+              <div>
+                <div
+                  className="w-[300px] h-20 bg-white flex items-center justify-between rounded-lg m-4 p-4 border border-gray-600 cursor-pointer"
+                  onClick={handleShowSplashScreen}
+                >
+                  <p>Idea Hub</p>
+                  <p>
+                    <FcIdea size={30} />
+                  </p>
                 </div>
-              </a>
-            ))}
+              </div>
+
+              <div
+                className="w-[300px] h-20 bg-white flex items-center justify-between rounded-lg m-4 p-4 border border-gray-600 cursor-pointer"
+                onClick={handlePndValidation}
+              >
+                <p>PND Portal</p>
+                <p>
+                  <IoPeopleSharp size={30} color="red" />
+                </p>
+              </div>
+              {applicationMenu.map((menu) => (
+                <a href={menu.path} target="_blank" rel="noopener noreferrer">
+                  <div className="w-[300px] h-20 bg-white flex items-center justify-between rounded-lg m-4 p-4 border border-gray-600 cursor-pointer">
+                    <p>{menu.title}</p>
+                    <p>{menu.icon}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

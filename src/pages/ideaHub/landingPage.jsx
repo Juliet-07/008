@@ -4,69 +4,56 @@ import { Link } from "react-router-dom";
 import Add from "../../assets/addIdea.png";
 import IdeaCard from "./ideaCard";
 import Modal from "../../components/Modal";
-import { Input, Textarea } from "@material-tailwind/react";
+import { Input, Textarea, Select, Option } from "@material-tailwind/react";
+import { PiCoinsLight } from "react-icons/pi";
 
 const IdeaHub = () => {
   const [details, setDetails] = useState(false);
+  const [additionalFields, setAdditionalFields] = useState([]);
+
+  const handleAddField = () => {
+    if (additionalFields.length < 5) {
+      setAdditionalFields([...additionalFields, ""]);
+    }
+  };
 
   const ideas = [
     {
       postedBy: "I.T",
-      campaignName: "Accomments Opening",
+      campaignName: "Accounts Opening",
       startDate: "date",
       endDate: "date",
       comment: "20",
       topStaff: "Sarah Omoike",
-      totalCoins: "30 coins",
+      totalCoins: "30",
       posted: "2 days ago",
     },
     {
       postedBy: "H.R",
-      campaignName: "Accomments Opening",
+      campaignName: "Accounts Opening",
       startDate: "date",
       endDate: "date",
       comment: "20",
       topStaff: "Sarah Omoike",
       likes: "20",
-      totalCoins: "30 coins",
+      totalCoins: "30",
       posted: "2 days ago",
     },
     {
       postedBy: "I.T",
-      campaignName: "Accomments Opening",
+      campaignName: "Accounts Opening",
       startDate: "date",
       endDate: "date",
       comment: "20",
       topStaff: "Sarah Omoike",
-      totalCoins: "30 coins",
-      posted: "2 days ago",
-    },
-    {
-      postedBy: "I.T",
-      campaignName: "Accomments Opening",
-      startDate: "date",
-      endDate: "date",
-      comment: "20",
-      topStaff: "Sarah Omoike",
-      likes: "10",
-      totalCoins: "30 coins",
-      posted: "2 days ago",
-    },
-    {
-      postedBy: "I.T",
-      campaignName: "Accomments Opening",
-      startDate: "date",
-      endDate: "date",
-      comment: "20",
-      topStaff: "Sarah Omoike",
-      totalCoins: "30 coins",
+      totalCoins: "30",
       posted: "2 days ago",
     },
   ];
 
   return (
     <>
-      <div className="w-full h-full">
+      <div className="w-full h-full p-6">
         {" "}
         <div className="flex flex-col items-center justify-center">
           <div className="w-full flex items-center justify-between px-6">
@@ -81,7 +68,12 @@ const IdeaHub = () => {
             </div>
             <div>
               <p>Filter By:</p>
-              <p>Filter</p>
+              <div>
+                <Select label="Filter">
+                  <Option>Open Campaigns</Option>
+                  <Option>Closed Campaigns</Option>
+                </Select>
+              </div>
             </div>
           </div>
           <div className="text-[#84817E]">
@@ -114,13 +106,13 @@ const IdeaHub = () => {
           <div className="w-full">
             <Link to="/applications/ideaDescription">
               {ideas.map((idea) => (
-                <div className="flex flex-col item-center shadow-xl p-2 m-4 text-sm text-gray-800 bg-white/50">
+                <div className="h-[133px] flex flex-col item-center shadow-xl m-4 text-sm text-gray-800 bg-white/50">
                   <table className="w-full">
-                    <thead className="text-[#84817E] uppercase">
-                      <th className="p-3">campaign</th>
-                      <th className="p-3">group</th>
-                      <th className="p-3">start date</th>
-                      <th className="p-3">end date</th>
+                    <thead className="text-[#84817E] font-normal uppercase bg-gray-100">
+                      <th className="p-2">campaign</th>
+                      <th className="p-2">group</th>
+                      <th className="p-2">start date</th>
+                      <th className="p-2">end date</th>
                     </thead>
                     <tbody>
                       <tr className="text-center text-black">
@@ -133,10 +125,15 @@ const IdeaHub = () => {
                   </table>
                   <div className="w-full flex items-center justify-around mt-6">
                     <p>Comments:{idea.comment}</p>
-                    <p>
+                    <p className="flex items-center">
                       Top Staff: {idea.topStaff}
-                      <span className="ml-2 rounded-full w-10 h-10 p-3 my-2 border border-[#F2994A]">
-                        {idea.totalCoins}
+                      <span className="ml-2 flex items-center">
+                        {idea.totalCoins}{" "}
+                        <PiCoinsLight
+                          className="mx-2"
+                          color="orange"
+                          size={20}
+                        />
                       </span>
                     </p>
                     <p></p>
@@ -206,7 +203,29 @@ const IdeaHub = () => {
                   // onChange={handleChange}
                 />
               </div>
+              {/* Additional dynamic fields */}
+              {additionalFields.map((field, index) => (
+                <div key={index} className="mt-6">
+                  <Input
+                    size="lg"
+                    label={`Key Features ${index + 1}`}
+                    name={`additionalField${index + 1}`}
+                  />
+                </div>
+              ))}
 
+              <div className="mt-4 flex items-center">
+                <button
+                  type="button"
+                  className="bg-green-500 text-white px-4 py-2 rounded"
+                  onClick={handleAddField}
+                >
+                  Add Key Features
+                </button>
+                <p className="text-red-600 text-xs pl-2">
+                  Kindly add at least one key feature for your campaign
+                </p>
+              </div>
               <div className="mt-10">
                 <button
                   type="submit"

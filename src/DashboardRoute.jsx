@@ -11,11 +11,18 @@ import RequestForm from "./pages/bankingServices/dudChequeForm";
 import DudChequeApprover from "./pages/bankingServices/dudChequeApprover";
 import Reviewer from "./pages/bankingServices/reviewHome";
 import CounterfeitNoteTeller from "./pages/bankingServices/counterfeitNoteTeller";
-import CounterfeitNoteRequestForm from "./pages/bankingServices/counterfeitNoteForm"
+import CounterfeitNoteRequestForm from "./pages/bankingServices/counterfeitNoteForm";
 import CounterfeitApprover from "./pages/bankingServices/counterfeitNoteApprover";
 import CounterfeitNoteReport from "./pages/bankingServices/counterfeitNoteReport";
 import IdeaHub from "./pages/ideaHub/landingPage";
 import Description from "./pages/ideaHub/description";
+import Processes from "./pages/processes";
+import SupervisorPage from "./pages/access-request/supervisor";
+import CISOPage from "./pages/access-request/ciso";
+import CCOPage from "./pages/access-request/cco";
+import CIOPage from "./pages/access-request/cio";
+import AccessRequestHomePage from "./pages/access-request/home";
+import RequestorForm from "./pages/access-request/requestorForm";
 
 const DashboardRoute = () => {
   return (
@@ -54,10 +61,23 @@ const DashboardRoute = () => {
             element={<CounterfeitNoteReport />}
           />
           <Route path="/applications/ideaHub" element={<IdeaHub />} />
-          <Route path="/applications/ideaDescription" element={<Description />} />
+          <Route
+            path="/applications/ideaDescription"
+            element={<Description />}
+          />
           <Route path="/premiumKnowledgeExchange" element={<PKE />} />
           <Route path="/manager" element={<ProfileManager />} />
           <Route path="/policies" element={<Policies />} />
+          <Route path="/businessProcesses" element={<Processes />} />
+          <Route path="/access-requests" element={<AccessRequestHomePage />} />
+          <Route
+            path="/access-requests/supervisorPage"
+            element={<SupervisorPage />}
+          />
+          <Route path="/access-requests/CISOPage" element={<CISOPage />} />
+          <Route path="/access-requests/CCOPage" element={<CCOPage />} />
+          <Route path="/access-requests/CIOPage" element={<CIOPage />} />
+          <Route path="/access-requestor-form" element={<RequestorForm />} />
         </Routes>
       </Layout>
     </div>

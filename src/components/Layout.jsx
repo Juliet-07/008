@@ -29,7 +29,7 @@ const Layout = ({ children }) => {
     {
       title: "Business Processes",
       icon: <SiFormstack />,
-      path: "/forms",
+      path: "/businessProcesses",
     },
     {
       title: "Forms & Templates",
@@ -99,8 +99,8 @@ const Layout = ({ children }) => {
     );
   };
   const handleUserARRoleRoute = () => {
-    let email = users.givenname; //supervisor
-    // let email = "Damilola.Falonipe";
+    // let email = users.givenname; //supervisor
+    let email = "Damilola.Falonipe";
     // let email = "Sarah.Omoike";    //approval-one
     // let email = "Olatunji.Oseni";  //approval-two
     // let email = "Amechi.Ojei";     //approval-three
