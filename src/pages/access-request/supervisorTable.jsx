@@ -528,8 +528,8 @@ export const SupervisorAssignedRequests = () => {
                       );
                     })
                   ) : (
-                    <div className="flex items-center justify-center text-xl font-semibold">
-                      No accessCheque Report!
+                    <div className="flex items-center justify-center text-lg">
+                      No Report!
                     </div>
                   )}
                 </tbody>
@@ -559,13 +559,6 @@ export const SupervisorAssignedRequests = () => {
                   </li>
                 </ul>
               </nav>
-              {/* <div
-              className="flex items-center justify-center cursor-pointer w-[177px] h-[49px] bg-[#db1600] text-white font-semibold rounded"
-              onClick={onDownload}
-            >
-              <AiOutlineDownload size={20} />
-              <span> as .xlsx</span>
-            </div> */}
             </div>
           </div>
         )}

@@ -97,6 +97,8 @@ const customStylesAll = {
   },
 };
 
+const apiURL = import.meta.env.VITE_REACT_APP_GET_ACCESS_REQUEST;
+
 export const CISOTable = () => {
   const user = JSON.parse(localStorage.getItem("userInfo"));
   const [requests, setRequests] = useState([]);
@@ -107,7 +109,7 @@ export const CISOTable = () => {
     try {
       await axios
         .get(
-          `${process.env.REACT_APP_GET_ACCESS_REQUEST}/GetAllAccessRequestByRequesterEmail?requesterEmail=${email}@premiumtrustbank.com`
+          `${apiURL}/GetAllAccessRequestByRequesterEmail?requesterEmail=${email}@premiumtrustbank.com`
         )
         .then((response) => {
           console.log(response.data, "My Requests");
@@ -181,7 +183,7 @@ export const PendingTable = () => {
     try {
       await axios
         .get(
-          `${process.env.REACT_APP_GET_ACCESS_REQUEST}/GetAllAccessRequestByApprovalNEmail?staffEmail=${email}@premiumtrustbank.com`
+          `${apiURL}/GetAllAccessRequestByApprovalNEmail?staffEmail=${email}@premiumtrustbank.com`
         )
         .then((response) => {
           console.log(response.data, "Pending Requests");
@@ -212,7 +214,7 @@ export const PendingTable = () => {
     }
   };
 
-  const url = `${process.env.REACT_APP_GET_ACCESS_REQUEST}/ApproveRejectAccessRequest`;
+  const url = `${apiURL}/ApproveRejectAccessRequest`;
   const handleAuthorization = async (e, req) => {
     const payload = {
       id: req.id,
@@ -500,7 +502,7 @@ export const AllTable = () => {
     try {
       await axios
         .get(
-          `${process.env.REACT_APP_GET_ACCESS_REQUEST}/GetAllAccessRequestByRequesterEmail?requesterEmail=${email}@premiumtrustbank.com`
+          `${apiURL}/GetAllAccessRequestByRequesterEmail?requesterEmail=${email}@premiumtrustbank.com`
         )
         .then((response) => {
           console.log(response.data, "Access Request");
