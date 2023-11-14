@@ -16,14 +16,31 @@ import LEGAL5 from "../assets/Processes/Legal/GENERAL COMPANY SECTERIAT PROCESS.
 import LEGAL6 from "../assets/Processes/Legal/LEGAL GROUP SERVICES SOP.pdf";
 import LEGAL7 from "../assets/Processes/Legal/OTHER MISCELLANEOUS PROCESS.pdf";
 
+import IT1 from "../assets/Processes/IT/Change_Approval_Authority.pdf";
+import IT2 from "../assets/Processes/IT/Change_Management_Process.pdf";
+import CUSTOMER1 from "../assets/Processes/CustomerExperience/customerExperience.pdf";
+import CUSTOMER2 from "../assets/Processes/CustomerExperience/emailProcess.pdf";
+import CUSTOMER3 from "../assets/Processes/CustomerExperience/inbound_Complaints.pdf";
+import CUSTOMER4 from "../assets/Processes/CustomerExperience/inbound_Enquiry.pdf";
+import CUSTOMER5 from "../assets/Processes/CustomerExperience/inbound_Requests.pdf";
+import CUSTOMER6 from "../assets/Processes/CustomerExperience/process_flow_for_all_customers.pdf";
+import CORPORATE1 from "../assets/Processes/CorporateServices/facilityManagement.pdf";
+import CORPORATE2 from "../assets/Processes/CorporateServices/procurement.pdf";
+import CORPORATE3 from "../assets/Processes/CorporateServices/Protocol.pdf";
+import CORPORATE4 from "../assets/Processes/CorporateServices/Security.pdf";
+import COMPLIANCE1 from "../assets/Processes/Compliance/BRD_Compliance_Unauthorised_PNDRemoval.pdf";
+import COMPLIANCE2 from "../assets/Processes/Compliance/Deferral_Workflow.pdf";
+import COMPLIANCE3 from "../assets/Processes/Compliance/Ultimate_Beneficial_Owner_Register.pdf";
+import BS from "../assets/Processes/BankingServices/operationManual.pdf";
+
 const Processes = () => {
   const groups = [
     {
       name: "Banking Services",
       processFiles: [
         {
-          processName: "",
-          // filePath:
+          processName: "Banking Services Operation Manual",
+          filePath: BS,
         },
       ],
     },
@@ -32,18 +49,86 @@ const Processes = () => {
     },
     {
       name: "Conduct & Compliance ",
+      processFiles: [
+        {
+          processName: "BRD Compliance Unauthorized PND Removal",
+          filePath: COMPLIANCE1,
+        },
+        {
+          processName: "Deferral Workflow",
+          filePath: COMPLIANCE2,
+        },
+        {
+          processName: "Ultimate Beneficial Owner Register",
+          filePath: COMPLIANCE3,
+        },
+      ],
     },
     {
       name: "Corporate Services",
+      processFiles: [
+        {
+          processName: "Facility Management & Brand Developement",
+          filePath: CORPORATE1,
+        },
+        {
+          processName: "Procurement & Vendor Management",
+          filePath: CORPORATE2,
+        },
+        {
+          processName: "Protocol, Fleet & Logistics",
+          filePath: CORPORATE3,
+        },
+        {
+          processName: "Security",
+          filePath: CORPORATE4,
+        },
+      ],
     },
     {
       name: "Customer Experience",
+      processFiles: [
+        {
+          processName: "Customer Experience Management Process",
+          filePath: CUSTOMER1,
+        },
+        {
+          processName: "Email Process",
+          filePath: CUSTOMER2,
+        },
+        {
+          processName: "Inbound Process Activity (Complaints)",
+          filePath: CUSTOMER3,
+        },
+        {
+          processName: "Inbound Process Activity (Inquiry)",
+          filePath: CUSTOMER4,
+        },
+        {
+          processName: "Inbound Process Activity (Request)",
+          filePath: CUSTOMER5,
+        },
+        {
+          processName: "Process Flow For All Customer Interactions",
+          filePath: CUSTOMER6,
+        },
+      ],
     },
     {
       name: "Finance",
     },
     {
       name: "Information Technology",
+      processFiles: [
+        {
+          processName: "Change Approval Authority",
+          filePath: IT1,
+        },
+        {
+          processName: "Change Management Process",
+          filePath: IT2,
+        },
+      ],
     },
     {
       name: "International Trade Services",
@@ -89,7 +174,7 @@ const Processes = () => {
           filePath: PMG1,
         },
         {
-          processName: "Learning & Development Process",
+          processName: "Email Process",
           filePath: PMG2,
         },
         {

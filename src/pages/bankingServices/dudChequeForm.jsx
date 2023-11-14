@@ -176,6 +176,7 @@ const DudChequeTeller = () => {
         ac_Ccy: data.currency,
         issuerName: data.accountName,
         issuerNo: data.accountNumber,
+        sortCode: data.sort_code,
       });
       if (data.ccustomer_type === "Individual") {
         toast.success("Individual Account");
@@ -608,7 +609,7 @@ const DudChequeTeller = () => {
                     type="text"
                     name="sortCode"
                     value={sortCode}
-                    onChange={handleChange}
+                    // onChange={handleChange}
                   />
                 </div>
               </div>

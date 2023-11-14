@@ -7,9 +7,8 @@ import { MdSkipPrevious, MdSkipNext } from "react-icons/md";
 import Modal from "../../components/Modal";
 import { toast } from "react-toastify";
 import * as XLSX from "xlsx";
-import { useDownloadExcel } from "react-export-table-to-excel";
 
-const ApprovedData = () => {
+const CounterfeitNoteApprovedData = () => {
   const apiURL = import.meta.env.VITE_REACT_APP_DUDCHEQUE;
   const user = JSON.parse(localStorage.getItem("userInfo"));
   const tableRef = useRef(null);
@@ -24,7 +23,6 @@ const ApprovedData = () => {
   const records = pendingTransaction.slice(firstIndex, lastIndex);
   const npages = Math.ceil(pendingTransaction.length / recordsPerPage);
   const numbers = [...Array(npages + 1).keys()].slice(1);
-  
 
   const getUserInfo = () => {
     const url = `${apiURL}/GetUserInfor?UserID=${user.givenname}`;
@@ -38,7 +36,7 @@ const ApprovedData = () => {
   };
 
   const getApprovedTransaction = (branchCode) => {
-    const url = `${apiURL}/GetDudChequeApprovedTransaction?Initialised_BranchCode=${branchCode}`;
+    const url = `${apiURL}/GetCounterfeitNoteApprovedTransaction?BranchCode=${branchCode}`;
     axios.get(url).then((response) => {
       console.log(response.data, "Pending Transaction");
       setPendingTransaction(response.data.result);
@@ -70,16 +68,11 @@ const ApprovedData = () => {
     XLSX.writeFile(workbook, "DudChequeData.xlsx");
   };
 
-  const { onDownload } = useDownloadExcel({
-    currentTableRef: tableRef.current,
-    filename: "DudCheque Report",
-    sheet: "Corp Report",
-  });
   return (
     <>
       <div className="flex flex-col items-center justify-center mt-6">
         <div className="font-bold text-2xl uppercase mb-2">
-          approved dud cheque transaction
+          approved counterfeit note transaction
         </div>
         <div className="w-full rounded-lg bg-white p-4 max-w-full overflow-x-auto">
           <div className="flex items-center justify-between">
@@ -129,7 +122,7 @@ const ApprovedData = () => {
               </button>
             </form>
             <div
-              onClick={onDownload}
+              // onClick={onDownload}
               className="flex items-center cursor-pointer w-[100px] h-10 bg-green-600 text-white font-semibold rounded p-2"
             >
               <AiOutlineDownload size={20} />
@@ -142,14 +135,12 @@ const ApprovedData = () => {
               className="table bg-white text-sm text-left text-black px-4 w-full"
             >
               <thead className="bg-[#2B2E35] text-sm text-white font-semibold rounded-lg">
-                <th className="p-4">Account Name</th>
-                <th className="p-4">Account Number</th>
-                <th className="p-4">Customer Type</th>
-                <th className="p-4">Cheque Number</th>
-                <th className="p-4">Amount</th>
+                <th className="p-4">Branch</th>
+                <th className="p-4">Currency Number</th>
+                <th className="p-4">Denomination</th>
                 <th className="p-4">Initiator</th>
                 <th className="p-4">Date Initiated</th>
-                <th className="p-4">Approved Date</th>
+                <th className="p-4">Image</th>
                 <th className="p-4">Action</th>
                 <th className="p-4"></th>
               </thead>
@@ -158,26 +149,12 @@ const ApprovedData = () => {
                   records.map((dud, index) => {
                     return (
                       <tr>
-                        <td className="p-4">{dud.AccountName}</td>
                         <td className="p-4">{dud.AccountNumber}</td>
+                        <td className="p-4">{dud.AccountName}</td>
+                        <td className="p-4">{dud.CustomerNumber}</td>
                         <td className="p-4">{dud.CustomerType}</td>
                         <td className="p-4">{dud.ChequeNumber}</td>
                         <td className="p-4">{dud.Amount}</td>
-                        <td className="p-4">{dud.Initiator}</td>
-                        <td className="p-4">{dud.InitiatorDate}</td>
-                        <td className="p-4">{dud.ApprovedDate}</td>
-                        <td className="p-4 hidden">{dud.CustomerNumber}</td>
-                        <td className="p-4 hidden">{dud.ChequeIssuedDate}</td>
-                        <td className="p-4 hidden">{dud.Currecy}</td>
-                        <td className="p-4 hidden">{dud.AccountOpenDate}</td>
-                        <td className="p-4 hidden">{dud.IssuerName}</td>
-                        <td className="p-4 hidden">{dud.IssuerNumber}</td>
-                        <td className="p-4 hidden">{dud.MicroNumber}</td>
-                        <td className="p-4 hidden">{dud.Payee}</td>
-                        <td className="p-4 hidden">{dud.SettleDate}</td>
-                        <td className="p-4 hidden">{dud.SortCode}</td>
-                        <td className="p-4 hidden">{dud.TransactionNumber}</td>
-                        <td className="p-4 hidden">{dud.TransactionDate }</td>
                         <td className="p-4">
                           <div className="flex items-center cursor-pointer">
                             <ImDownload2
@@ -191,7 +168,7 @@ const ApprovedData = () => {
                                   AccountName: dud.AccountName,
                                   AccountBranch: dud.BranchCOde,
                                   AccountOpenDate: dud.AccountOpenDate,
-                                  AccountCurrency: dud.Currecy,
+                                  AccountCurrency: dud.Currency,
                                   Amount: dud.Amount,
                                   CustomerNumber: dud.CustomerNumber,
                                   ChequeNumber: dud.ChequeNumber,
@@ -252,12 +229,6 @@ const ApprovedData = () => {
                                   Account Open Date:
                                   <span className="ml-1 font-semibold text-black">
                                     {selectedRowData.AccountOpenDate}
-                                  </span>
-                                </div>
-                                <div className="font-normal text-[#7b7878]">
-                                  Account Branch:
-                                  <span className="ml-1 font-semibold text-black">
-                                    {selectedRowData.BranchCode}
                                   </span>
                                 </div>
                                 <div className="font-normal text-[#7b7878]">
@@ -427,4 +398,4 @@ const ApprovedData = () => {
   );
 };
 
-export default ApprovedData;
+export default CounterfeitNoteApprovedData;

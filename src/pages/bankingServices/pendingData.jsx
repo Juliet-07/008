@@ -16,6 +16,10 @@ const PendingData = () => {
   const [userInfo, setUserInfo] = useState({});
   const [details, setDetails] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState({});
+  const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
+  const [confirmationAction, setConfirmationAction] = useState("");
+
+  // PAGINATION
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 10;
   const lastIndex = currentPage * recordsPerPage;
@@ -68,42 +72,58 @@ const PendingData = () => {
 
   const url = `${apiURL}/AuthorisedDudCheque`;
 
-  const handleAuthorization = async (e, dud) => {
-    const payload = {
-      ChequeNumber: dud.ChequeNumber,
-      BranchCode: dud.BranchCode,
-      CustomerType: dud.CustomerType,
-      Approve_By: user.name,
-    };
-    console.log(payload, "payload");
-    await axios
-      .post(url, payload)
-      .then(
-        (response) => (
-          console.log(response, "response from authorizer"),
-          toast.success("Authorization Status:" + response.data)
-        )
-      );
+  const handleAuthorization = (e, dud) => {
+    setConfirmationAction("approve");
+    setSelectedRowData(dud);
+    setConfirmationModalOpen(true);
   };
-  const handleDecline = async (e, dud) => {
-    const payload = {
-      AccountNumber: dud.AccountNumber,
-      ChequeNumber: dud.ChequeNumber,
-      BranchCode: dud.BranchCode,
-      CustomerType: dud.CustomerType,
-      Status: "2",
-      Approve_By: user.name,
-    };
-    console.log(payload, "payload");
-    await axios
-      .post(url, payload)
-      .then(
-        (response) => (
-          console.log(response, "response from authorizer"),
-          toast.success("Authorization Status:" + response.data)
-        )
-      );
+
+  const handleDecline = (e, dud) => {
+    setConfirmationAction("decline");
+    setSelectedRowData(dud);
+    setConfirmationModalOpen(true);
   };
+
+  const handleConfirmation = async (e, dud) => {
+    setConfirmationModalOpen(false);
+
+    // Perform the action based on the confirmationAction state
+    if (confirmationAction === "approve") {
+      const payload = {
+        ChequeNumber: dud.ChequeNumber,
+        BranchCode: dud.BranchCode,
+        CustomerType: dud.CustomerType,
+        Approve_By: user.name,
+      };
+      console.log(payload, "payload");
+      await axios
+        .post(url, payload)
+        .then(
+          (response) => (
+            console.log(response, "response from authorizer"),
+            toast.success("Authorization Status:" + response.data)
+          )
+        );
+    } else if (confirmationAction === "decline") {
+      const payload = {
+        ChequeNumber: dud.ChequeNumber,
+        BranchCode: dud.BranchCode,
+        CustomerType: dud.CustomerType,
+        Approve_By: user.name,
+        Status: "2",
+      };
+      console.log(payload, "payload");
+      await axios
+        .post(url, payload)
+        .then(
+          (response) => (
+            console.log(response, "response from authorizer"),
+            toast.success("Authorization Status:" + response.data)
+          )
+        );
+    }
+  };
+
   return (
     <>
       <div className="flex flex-col items-center justify-center mt-6">
@@ -152,6 +172,34 @@ const PendingData = () => {
                             />
                           </div>
                         </td>
+                        <Modal
+                          isVisible={confirmationModalOpen}
+                          onClose={() => setConfirmationModalOpen(false)}
+                        >
+                          <div className="flex flex-col items-center">
+                            <div className=" text-xl mb-4">
+                              Are you sure you want to
+                              {confirmationAction === "approve"
+                                ? " approve this transaction"
+                                : "decline this transaction"}
+                            </div>
+                            <div className="flex items-center justify-center">
+                              <button
+                                onClick={(e) => handleConfirmation(e, dud)}
+                                className="w-[120px] h-10 p-2 text-white text-sm font-semibold bg-green-600 rounded mr-4"
+                              >
+                                Yes
+                              </button>
+                              <button
+                                onClick={() => setConfirmationModalOpen(false)}
+                                className="w-[100px] h-10 p-2 text-black text-sm font-semibold rounded border border-black"
+                              >
+                                No
+                              </button>
+                            </div>
+                          </div>
+                        </Modal>
+
                         <td className="p-4 flex items-center justify-center cursor-pointer">
                           <BiDotsVertical
                             onClick={() => {
