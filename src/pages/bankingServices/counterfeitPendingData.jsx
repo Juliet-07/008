@@ -130,7 +130,7 @@ const CounterfeitPendingData = () => {
               className="table bg-white text-sm text-left text-black px-4 w-full"
             >
               <thead className="bg-[#2B2E35] text-sm text-white font-semibold rounded-lg">
-                <th className="p-4">Branch</th>
+                <th className="p-4">Account Branch</th>
                 <th className="p-4">Currency Number</th>
                 <th className="p-4">Denomination</th>
                 <th className="p-4">Initiator</th>

@@ -78,12 +78,29 @@ const CounterfeitNoteReport = () => {
     }
   };
 
-  const { onDownload } = useDownloadExcel({
+  const { onDownload: onDownloadAll } = useDownloadExcel({
     currentTableRef: tableRef.current,
     filename: "CounterfeitNote Report",
     sheet: "All Report",
   });
 
+  const onDownloadIndividual = (branchType) => {
+    const currentTableRef = tableRef.current[branchType];
+
+    if (currentTableRef) {
+      onDownloadAll(); // Download all tables (if needed)
+
+      // Customize the download for the individual table
+      const filename = `CounterfeitNote Report - ${branchType}`;
+      const sheet = "Individual Report";
+
+      onDownload({
+        currentTableRef,
+        filename,
+        sheet,
+      });
+    }
+  };
   return (
     <>
       <div className="flex flex-col items-center justify-center">
@@ -156,7 +173,7 @@ const CounterfeitNoteReport = () => {
             </form>
             <div
               className="flex items-center justify-center cursor-pointer w-[150px] h-[45px] bg-green-600 text-white font-semibold rounded mb-3"
-              onClick={onDownload}
+              onClick={onDownloadAll}
             >
               <AiOutlineDownload size={20} />
               <span>Export as .xlsx</span>
@@ -236,7 +253,10 @@ const CounterfeitNoteReport = () => {
                           </td>
                           <td className="p-4">
                             {showBranchType[index] ? (
-                              <table className="table bg-white text-sm text-left text-black px-4 w-full">
+                              <table
+                                className="table bg-white text-sm text-left text-black px-4 w-full"
+                                ref={tableRef}
+                              >
                                 <thead className="bg-[#2B2E35] text-sm text-white font-semibold rounded-lg">
                                   <th className="p-4">Denomination</th>
                                   <th className="p-4">Currency Number</th>
@@ -247,7 +267,7 @@ const CounterfeitNoteReport = () => {
                                   <th>
                                     <div
                                       className="flex items-center justify-center cursor-pointer w-20 h-10 bg-[#db1600] text-white rounded"
-                                      onClick={onDownload}
+                                      onClick={onDownloadAll}
                                     >
                                       <AiOutlineDownload size={20} />
                                       <span className="pl-2"> as .xlsx</span>
@@ -294,25 +314,6 @@ const CounterfeitNoteReport = () => {
                     </div>
                   )}
                 </tbody>
-                {/* <tbody>
-                {records.length > 0 ? (
-                  records.map((note) => {
-                    return (
-                      <tr>
-                        <td className="p-4">{note.BRANCH}</td>
-                        <td className="p-4">{note.DENOMINATION}</td>
-                        <td className="p-4">
-                          <BiDotsVertical size={20} />
-                        </td>
-                      </tr>
-                    );
-                  })
-                ) : (
-                  <div className="flex items-center justify-center text-xl font-semibold">
-                    No CounterfeitNote Report!
-                  </div>
-                )}
-              </tbody> */}
               </table>
               <nav>
                 <ul className="flex flex-row items-center">

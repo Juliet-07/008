@@ -15,7 +15,22 @@ import LEGAL4 from "../assets/Processes/Legal/EVALUATION AND SECURITY DOCUMENTAT
 import LEGAL5 from "../assets/Processes/Legal/GENERAL COMPANY SECTERIAT PROCESS.pdf";
 import LEGAL6 from "../assets/Processes/Legal/LEGAL GROUP SERVICES SOP.pdf";
 import LEGAL7 from "../assets/Processes/Legal/OTHER MISCELLANEOUS PROCESS.pdf";
-
+import ITS1 from "../assets/Processes/ITS/billsCollector.pdf";
+import ITS2 from "../assets/Processes/ITS/capitalImportation.pdf";
+import ITS3 from "../assets/Processes/ITS/domFunds.pdf";
+import ITS4 from "../assets/Processes/ITS/electronicForms.pdf";
+import ITS5 from "../assets/Processes/ITS/exportTransactions.pdf";
+import ITS6 from "../assets/Processes/ITS/foreignExchange.pdf";
+import ITS7 from "../assets/Processes/ITS/guarantee.pdf";
+import ITS8 from "../assets/Processes/ITS/invisibleTransaction.pdf";
+import ITS9 from "../assets/Processes/ITS/inwardFunds.pdf";
+import ITS10 from "../assets/Processes/ITS/ITS.pdf";
+import ITS11 from "../assets/Processes/ITS/lettersOfCredit.pdf";
+import ITS12 from "../assets/Processes/ITS/miscellanous.pdf";
+import ITS13 from "../assets/Processes/ITS/ptaProcessFlow.pdf";
+import ITS14 from "../assets/Processes/ITS/reports&returns.pdf";
+import ITS15 from "../assets/Processes/ITS/smallEnterpriseRemittance.pdf";
+import ITS16 from "../assets/Processes/ITS/transactionDynamics.pdf";
 import IT1 from "../assets/Processes/IT/Change_Approval_Authority.pdf";
 import IT2 from "../assets/Processes/IT/Change_Management_Process.pdf";
 import CUSTOMER1 from "../assets/Processes/CustomerExperience/customerExperience.pdf";
@@ -31,6 +46,34 @@ import CORPORATE4 from "../assets/Processes/CorporateServices/Security.pdf";
 import COMPLIANCE1 from "../assets/Processes/Compliance/BRD_Compliance_Unauthorised_PNDRemoval.pdf";
 import COMPLIANCE2 from "../assets/Processes/Compliance/Deferral_Workflow.pdf";
 import COMPLIANCE3 from "../assets/Processes/Compliance/Ultimate_Beneficial_Owner_Register.pdf";
+import COO1 from "../assets/Processes/CentralOperation/cashAdvance.pdf";
+import COO2 from "../assets/Processes/CentralOperation/brdExpense.pdf";
+import COO3 from "../assets/Processes/CentralOperation/ARBITER _ADJUSTMENT.pdf";
+import COO4 from "../assets/Processes/CentralOperation/Card_Services.pdf";
+import COO5 from "../assets/Processes/CentralOperation/Cards_Operations.pdf";
+import COO6 from "../assets/Processes/CentralOperation/centralClearing.pdf";
+import COO7 from "../assets/Processes/CentralOperation/DISPUTE_RESOLUTION.pdf";
+import COO8 from "../assets/Processes/CentralOperation/e-Tranzact.pdf";
+import COO9 from "../assets/Processes/CentralOperation/financeOperationManual.pdf";
+import COO10 from "../assets/Processes/CentralOperation/LSRev-Pay.pdf";
+import COO11 from "../assets/Processes/CentralOperation/MasterCard.pdf";
+import COO12 from "../assets/Processes/CentralOperation/NAPS.pdf";
+import COO13 from "../assets/Processes/CentralOperation/NIP_FAILED_TRANSACTION.pdf";
+import COO14 from "../assets/Processes/CentralOperation/NIP_SETTLMENT_PROCESS.pdf";
+import COO15 from "../assets/Processes/CentralOperation/PAYDirectAdministration.pdf";
+import COO16 from "../assets/Processes/CentralOperation/PAYDirectCollection.pdf";
+import COO17 from "../assets/Processes/CentralOperation/PAYU_SETTLEMENT.pdf";
+import COO18 from "../assets/Processes/CentralOperation/PIN_Administration.pdf";
+import COO19 from "../assets/Processes/CentralOperation/PREMIUM_MOBILE.pdf";
+import COO20 from "../assets/Processes/CentralOperation/PREMIUM_VTU.pdf";
+import COO21 from "../assets/Processes/CentralOperation/PTB_BILL_PAYMENT.pdf";
+import COO22 from "../assets/Processes/CentralOperation/REGULATORY_Reporting.pdf";
+import COO23 from "../assets/Processes/CentralOperation/REMITA_Profiling.pdf";
+import COO24 from "../assets/Processes/CentralOperation/Remita_reconciliation.pdf";
+import COO25 from "../assets/Processes/CentralOperation/STAMPDUTY_Remittance.pdf";
+import COO26 from "../assets/Processes/CentralOperation/VERVECARD_SETTLEMENT.pdf";
+import COO27 from "../assets/Processes/CentralOperation/VISA_Credit-Debit_Card_Settlement.pdf";
+
 import BS from "../assets/Processes/BankingServices/operationManual.pdf";
 
 const Processes = () => {
@@ -46,6 +89,116 @@ const Processes = () => {
     },
     {
       name: "Central Operations ",
+      processFiles: [
+        {
+          processName: "Automation Of Cash Advance Requests",
+          filePath: COO1,
+        },
+        {
+          processName: "Automation Of Expense Processes",
+          filePath: COO2,
+        },
+        {
+          processName: "Arbiter Adjustment",
+          filePath: COO3,
+        },
+        {
+          processName: "Card Services",
+          filePath: COO4,
+        },
+        {
+          processName: "Card Operations Function",
+          filePath: COO5,
+        },
+        {
+          processName: "Central Clearing Process",
+          filePath: COO6,
+        },
+        {
+          processName: "Dispute Resolution",
+          filePath: COO7,
+        },
+        {
+          processName: "E-Transact",
+          filePath: COO8,
+        },
+        {
+          processName: "Finance Operation Manual",
+          filePath: COO9,
+        },
+        {
+          processName: "Lagos State Rev-Pay",
+          filePath: COO10,
+        },
+        {
+          processName: "Master Card Settlement",
+          filePath: COO11,
+        },
+        {
+          processName: "NIBSS Automated Payment System",
+          filePath: COO12,
+        },
+        {
+          processName: "NIP Failed Transactions",
+          filePath: COO13,
+        },
+        {
+          processName: "NIP Settlement Process",
+          filePath: COO14,
+        },
+        {
+          processName: " PAY Direct Administration",
+          filePath: COO15,
+        },
+        {
+          processName: "PAY Direct Collection",
+          filePath: COO16,
+        },
+        {
+          processName: "PAYU Settlement",
+          filePath: COO17,
+        },
+        {
+          processName: "PIN Administration",
+          filePath: COO18,
+        },
+        {
+          processName: "Premium Mobile",
+          filePath: COO19,
+        },
+        {
+          processName: "Premium VTU",
+          filePath: COO20,
+        },
+        {
+          processName: "Premium Bank Bill Payment",
+          filePath: COO21,
+        },
+        {
+          processName: "Regulatory Reporting",
+          filePath: COO22,
+        },
+        {
+          processName: "Remita Profiling",
+          filePath: COO23,
+        },
+        {
+          processName: "Remita Reconcilliation",
+          filePath: COO24,
+        },
+        {
+          processName: "Stamp Duty Remittance",
+          filePath: COO25,
+        },
+        {
+          processName: "Verve Card Settlment",
+          filePath: COO26,
+        },
+        {
+          processName: "Visa Credit/Debit Card Settlement",
+          filePath: COO27,
+        },
+      ],
     },
     {
       name: "Conduct & Compliance ",
@@ -132,6 +285,72 @@ const Processes = () => {
     },
     {
       name: "International Trade Services",
+      processFiles: [
+        {
+          processName: "Bills For Collection",
+          filePath: ITS1,
+        },
+        {
+          processName: "Capital Importation",
+          filePath: ITS2,
+        },
+        {
+          processName: "Domicilliary Funds Transfer",
+          filePath: ITS3,
+        },
+        {
+          processName: "Electronic Form Transaction",
+          filePath: ITS4,
+        },
+        {
+          processName: "Export Transaction Process",
+          filePath: ITS5,
+        },
+        {
+          processName: "Foreign Exchange Sales To Customers",
+          filePath: ITS6,
+        },
+        {
+          processName: "Guarantees",
+          filePath: ITS7,
+        },
+        {
+          processName: "Invisible Transaction",
+          filePath: ITS8,
+        },
+        {
+          processName: "Inwards Funds Transfer",
+          filePath: ITS9,
+        },
+        {
+          processName: "International Trade Services",
+          filePath: ITS10,
+        },
+        {
+          processName: "Letter Of Credit",
+          filePath: ITS11,
+        },
+        {
+          processName: "Miscellanous Process",
+          filePath: ITS12,
+        },
+        {
+          processName: "PTA Process Flow",
+          filePath: ITS13,
+        },
+        {
+          processName: "Reports & Returns",
+          filePath: ITS14,
+        },
+        {
+          processName: "Small Enterprise Remittance",
+          filePath: ITS15,
+        },
+        {
+          processName: "Transaction Dynamics",
+          filePath: ITS16,
+        },
+      ],
     },
     {
       name: "Legal Services",

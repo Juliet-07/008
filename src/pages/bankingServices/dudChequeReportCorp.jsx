@@ -310,7 +310,7 @@ const DudChequeReportCorp = () => {
 
           {buttonClicked ? (
             <>
-              <div>Results From Search</div>
+              <div className="my-4 font-semibold text-xl underline">Results From Search</div>
               <div className="w-[1080px] 2xl:w-[1190px] flex flex-col items-center justify-center">
                 <table
                   ref={tableRef}
