@@ -37,7 +37,7 @@ const Signin = () => {
           let userDetail = JSON.stringify(user.data);
           localStorage.setItem("userInfo", userDetail);
           if (user.message === "User Authenticated Successfully") {
-            navigate("/dashboard");
+            navigate("/applications");
           }
           if (user.status === "99") {
             alert(user.message);
