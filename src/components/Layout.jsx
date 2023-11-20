@@ -6,6 +6,7 @@ import { BsArrowLeftShort } from "react-icons/bs";
 import { MdDashboard, MdOutlineSettingsApplications } from "react-icons/md";
 import { GoOrganization } from "react-icons/go";
 import { GiBookmark } from "react-icons/gi";
+import { FaBusinessTime } from "react-icons/fa";
 import { FcManager } from "react-icons/fc";
 import { IoMdSchool } from "react-icons/io";
 import { SiFormstack } from "react-icons/si";
@@ -28,7 +29,7 @@ const Layout = ({ children }) => {
     },
     {
       title: "Business Processes",
-      icon: <SiFormstack />,
+      icon: <FaBusinessTime />,
       path: "/businessProcesses",
     },
     {

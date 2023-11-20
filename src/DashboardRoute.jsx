@@ -23,6 +23,7 @@ import CCOPage from "./pages/access-request/cco";
 import CIOPage from "./pages/access-request/cio";
 import AccessRequestHomePage from "./pages/access-request/home";
 import RequestorForm from "./pages/access-request/requestorForm";
+import Forms from "./pages/forms";
 
 const DashboardRoute = () => {
   return (
@@ -78,6 +79,7 @@ const DashboardRoute = () => {
           <Route path="/access-requests/CCOPage" element={<CCOPage />} />
           <Route path="/access-requests/CIOPage" element={<CIOPage />} />
           <Route path="/access-requestor-form" element={<RequestorForm />} />
+          <Route path="/forms" element={<Forms />} />
         </Routes>
       </Layout>
     </div>
