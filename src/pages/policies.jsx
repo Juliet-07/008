@@ -40,6 +40,7 @@ function classNames(...classes) {
 }
 
 const Policies = () => {
+  const apiURL = import.meta.env.VITE_REACT_APP_AD_BASEURL;
   const { handleSubmit } = useForm();
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState(null);
@@ -227,7 +228,7 @@ const Policies = () => {
     if (_email) {
       await axios
         .post(
-          `${process.env.REACT_APP_AD_BASEURL}/GetUserInfoByEmail?email=${_email}@premiumtrustbank.com`
+          `${apiURL}/GetUserInfoByEmail?email=${_email}@premiumtrustbank.com`
         )
         .then((response) => {
           console.log(response.data, "userdetails");
