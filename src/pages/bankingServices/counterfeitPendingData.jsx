@@ -86,8 +86,8 @@ const CounterfeitPendingData = () => {
     // Perform the action based on the confirmationAction state
     if (confirmationAction === "approve") {
       const payload = {
-        BRANCHCODE: note.BRANCH,
-        DENOMINATION: note.DENOMINATION,
+        BRANCHCODE: selectedRowData.BRANCH,
+        DENOMINATION: selectedRowData.DENOMINATION,
         APPROVED_BY: user.name,
       };
       console.log(payload, "payload");
@@ -101,8 +101,8 @@ const CounterfeitPendingData = () => {
         );
     } else if (confirmationAction === "decline") {
       const payload = {
-        BRANCHCODE: note.BRANCH,
-        DENOMINATION: note.DENOMINATION,
+        BRANCHCODE: selectedRowData.BRANCH,
+        DENOMINATION: selectedRowData.DENOMINATION,
         APPROVED_BY: user.name,
         STATUS: "2",
       };

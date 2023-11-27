@@ -74,14 +74,14 @@ const PendingData = () => {
 
   const handleAuthorization = (e, dud) => {
     setConfirmationAction("approve");
-    setSelectedRowData(dud);
     setConfirmationModalOpen(true);
+    setSelectedRowData(dud);
   };
 
   const handleDecline = (e, dud) => {
     setConfirmationAction("decline");
-    setSelectedRowData(dud);
     setConfirmationModalOpen(true);
+    setSelectedRowData(dud);
   };
 
   const handleConfirmation = async (e, dud) => {
@@ -90,9 +90,9 @@ const PendingData = () => {
     // Perform the action based on the confirmationAction state
     if (confirmationAction === "approve") {
       const payload = {
-        ChequeNumber: dud.ChequeNumber,
-        BranchCode: dud.BranchCode,
-        CustomerType: dud.CustomerType,
+        ChequeNumber: selectedRowData.ChequeNumber,
+        BranchCode: selectedRowData.BranchCode,
+        CustomerType: selectedRowData.CustomerType,
         Approve_By: user.name,
       };
       console.log(payload, "payload");
@@ -106,9 +106,9 @@ const PendingData = () => {
         );
     } else if (confirmationAction === "decline") {
       const payload = {
-        ChequeNumber: dud.ChequeNumber,
-        BranchCode: dud.BranchCode,
-        CustomerType: dud.CustomerType,
+        ChequeNumber: selectedRowData.ChequeNumber,
+        BranchCode: selectedRowData.BranchCode,
+        CustomerType: selectedRowData.CustomerType,
         Approve_By: user.name,
         Status: "2",
       };
@@ -181,7 +181,7 @@ const PendingData = () => {
                               Are you sure you want to
                               {confirmationAction === "approve"
                                 ? " approve this transaction"
-                                : "decline this transaction"}
+                                : " decline this transaction"}
                             </div>
                             <div className="flex items-center justify-center">
                               <button
