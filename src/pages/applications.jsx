@@ -26,8 +26,9 @@ import SplashScreen from "./ideaHub/SplashScreen";
 
 const Applications = () => {
   const apiURL = import.meta.env.VITE_REACT_APP_DUDCHEQUE;
-  const navigate = useNavigate();
+  const APP_ID = import.meta.env.VITE_REACT_APP_IDEA_HUB_APP_ID;
   const user = JSON.parse(localStorage.getItem("userInfo"));
+  const navigate = useNavigate();
   const [showSplash, setShowSplash] = useState(false);
   let id = user.givenname;
   // let id = "bsm.branch";
@@ -241,18 +242,49 @@ const Applications = () => {
     }
   };
 
-  const handleShowSplashScreen = () => {
-    setShowSplash(true);
-    setTimeout(() => {
-      window.location.href = "/applications/ideaHub";
-    }, 5000);
+  let name = user.givenname;
+  const handleUserIdeaHubRoleRoute = async () => {
+    let email = name;
+    // let email = "Sarah.Omoike";
+    let user;
+    let url = `http://192.168.201.57:449/api/UserApplications/getUserRoleByEmail&AppId?AppId=${APP_ID}&email=${email}@premiumtrustbank.com`;
+    try {
+      setShowSplash(true);
+      const response = await axios.get(url);
+      console.log(response.data, "User Info IdeaHub");
+      user = response.data;
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      // navigation
+      if (user.data === null && user.responseMessage === "User Not Profiled") {
+        return navigate("/applications/ideaHub-employee");
+      }
+      if (user.roleDescription === "Moderator") {
+        return navigate("/applications/ideaHub-moderator");
+      }
+      if (user.roleDescription === "Management") {
+        return navigate("/applications/ideaHub-management");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      // Hide the splash screen after the navigation or in case of an error
+      setShowSplash(false);
+    }
   };
 
-  useEffect(() => {
-    return () => {
-      setShowSplash(false);
-    };
-  }, []);
+  // const handleShowSplashScreen = () => {
+  //   setShowSplash(true);
+  //   setTimeout(() => {
+  //     window.location.href = "/applications/ideaHub";
+  //   }, 5000);
+  // };
+
+  // useEffect(() => {
+  //   return () => {
+  //     setShowSplash(false);
+  //   };
+  // }, []);
 
   return (
     <>
@@ -282,7 +314,7 @@ const Applications = () => {
               <div>
                 <div
                   className="w-[300px] h-20 bg-white flex items-center justify-between rounded-lg m-4 p-4 border border-gray-600 cursor-pointer"
-                  onClick={handleShowSplashScreen}
+                  onClick={handleUserIdeaHubRoleRoute}
                 >
                   <p>Idea Hub</p>
                   <p>

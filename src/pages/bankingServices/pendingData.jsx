@@ -94,6 +94,7 @@ const PendingData = () => {
         BranchCode: selectedRowData.BranchCode,
         CustomerType: selectedRowData.CustomerType,
         Approve_By: user.name,
+        Status: "1",
       };
       console.log(payload, "payload");
       await axios

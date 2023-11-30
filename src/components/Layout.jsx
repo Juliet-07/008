@@ -99,6 +99,7 @@ const Layout = ({ children }) => {
       </NavLink>
     );
   };
+
   const handleUserARRoleRoute = () => {
     // let email = users.givenname; //supervisor
     let email = "Damilola.Falonipe";
@@ -133,6 +134,7 @@ const Layout = ({ children }) => {
         }
       });
   };
+
   return (
     <div className="w-full h-full">
       <div className="flex">

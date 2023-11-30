@@ -1,55 +1,50 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import { BiDotsVertical } from "react-icons/bi";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { IoTrashBinSharp } from "react-icons/io5";
 import { MdSkipPrevious, MdSkipNext } from "react-icons/md";
-import Modal from "../../components/Modal";
+import Modal from "../../../components/Modal";
 import { toast } from "react-toastify";
 
-const CounterfeitPendingData = () => {
-  const apiURL = import.meta.env.VITE_REACT_APP_DUDCHEQUE;
+("http://192.168.207.18:1230/api/Moderators/GetAllPendingCampaigns");
+
+const PendingCampaign = () => {
+  const apiURL = import.meta.env.VITE_REACT_APP_GET_IDEA_HUB_MODERATOR;
   const user = JSON.parse(localStorage.getItem("userInfo"));
   const tableRef = useRef(null);
-  const [pendingTransaction, setPendingTransaction] = useState([]);
+  const [pendingCampaign, setPendingCampaign] = useState([]);
   const [userInfo, setUserInfo] = useState({});
   const [details, setDetails] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState({});
-  const [currentPage, setCurrentPage] = useState(1);
-  const [imageSrc, setImageSrc] = useState("");
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [confirmationAction, setConfirmationAction] = useState("");
+
+  // PAGINATION
+  const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 10;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = pendingTransaction.slice(firstIndex, lastIndex);
-  const npages = Math.ceil(pendingTransaction.length / recordsPerPage);
+  const records = pendingCampaign.slice(firstIndex, lastIndex);
+  const npages = Math.ceil(pendingCampaign.length / recordsPerPage);
   const numbers = [...Array(npages + 1).keys()].slice(1);
+  const [activeTab, setActiveTab] = useState(1);
 
-  const getUserInfo = () => {
-    const url = `${apiURL}/GetUserInfor?UserID=${user.givenname}`;
-    axios.get(url).then(async (response) => {
-      const data = response.data.result;
-      console.log({ data }, "user info");
-      setUserInfo(data);
-      const { branchCode } = data;
-      if (branchCode) await getPendingTransaction(branchCode);
+  const handleTabClick = (tabNumber) => {
+    setActiveTab(tabNumber);
+  };
+
+  const GetPendingCampaigns = () => {
+    const url = `${apiURL}/GetAllPendingCampaigns`;
+    axios.get(url).then((response) => {
+      console.log(response.data, "Pending Campaign");
+      setPendingCampaign(response.data.responseValue);
     });
   };
 
-  const getPendingTransaction = (branchCode) => {
-    const url = `${apiURL}/GetCounterfeitNotePendingTransaction?BranchCode=${branchCode}`;
-    try {
-      axios.get(url).then((response) => {
-        setPendingTransaction(response.data.result);
-        console.log(response.data.result, "Pending Transactions");
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    getUserInfo();
+    GetPendingCampaigns();
   }, []);
 
   const prevPage = () => {
@@ -66,128 +61,89 @@ const CounterfeitPendingData = () => {
     }
   };
 
-  const url = `${apiURL}/AuthorisedCounterfeitNote`;
-
-  const handleAuthorization = (e, note) => {
+  const handleAuthorization = (e, dud) => {
     setConfirmationAction("approve");
-    setSelectedRowData(note);
     setConfirmationModalOpen(true);
+    setSelectedRowData(dud);
   };
 
-  const handleDecline = (e, note) => {
+  const handleDecline = (e, idea) => {
     setConfirmationAction("decline");
-    setSelectedRowData(note);
     setConfirmationModalOpen(true);
+    setSelectedRowData(idea);
   };
 
-  const handleConfirmation = async (e, note) => {
+  const handleConfirmation = async (e, idea) => {
     setConfirmationModalOpen(false);
+    let campaignId = selectedRowData.campaignId;
 
     // Perform the action based on the confirmationAction state
     if (confirmationAction === "approve") {
-      const payload = {
-        BRANCHCODE: selectedRowData.BRANCH,
-        DENOMINATION: selectedRowData.DENOMINATION,
-        APPROVED_BY: user.name,
-        STATUS: "1",
-      };
-      console.log(payload, "payload");
+      const urlApproved = `${apiURL}/UpdateCampaignApprovalStatus?campaignId=${campaignId}&statusCode=${3}`;
       await axios
-        .post(url, payload)
+        .post(urlApproved)
         .then(
           (response) => (
             console.log(response, "response from authorizer"),
-            toast.success("Authorization Status:" + response.data)
+            toast.success("Authorization Status:" + response.data.responseMessage)
           )
         );
     } else if (confirmationAction === "decline") {
-      const payload = {
-        BRANCHCODE: selectedRowData.BRANCH,
-        DENOMINATION: selectedRowData.DENOMINATION,
-        APPROVED_BY: user.name,
-        STATUS: "2",
-      };
-      console.log(payload, "payload");
+      const urlDeclined = `${apiURL}/UpdateCampaignApprovalStatus?campaignId=${campaignId}&statusCode=${4}`;
       await axios
-        .post(url, payload)
+        .post(urlDeclined)
         .then(
           (response) => (
             console.log(response, "response from authorizer"),
-            toast.success("Authorization Status:" + response.data)
+            toast.success("Authorization Status:" + response.data.responseMessage)
           )
         );
     }
   };
+
   return (
     <>
       <div className="flex flex-col items-center justify-center mt-6">
         <div className="font-bold text-2xl uppercase mb-2">
-          Counterfeit Note Transactions for approval
+          idea campaign for approval
         </div>
-        <div className="w-[1000px] 2xl:w-[1190px] rounded-lg bg-white p-4">
+        <div className="w-full rounded-lg bg-white p-4 max-w-full overflow-x-auto">
           <div className="flex flex-col items-center justify-center">
             <table
               ref={tableRef}
               className="table bg-white text-sm text-left text-black px-4 w-full"
             >
               <thead className="bg-[#2B2E35] text-sm text-white font-semibold rounded-lg">
-                <th className="p-4">Account Branch</th>
-                <th className="p-4">Currency Number</th>
-                <th className="p-4">Denomination</th>
-                <th className="p-4">Initiator</th>
+                <th className="p-4">Campaign Category</th>
+                <th className="p-4">Campaign Name</th>
+                <th className="p-4">Initiated By</th>
+                <th className="p-4">Initiator Branch</th>
                 <th className="p-4">Date Initiated</th>
-                <th className="p-4">Image</th>
-                <th className="p-4">Action</th>
+                <th className="p-4"></th>
+                <th className="p-4"></th>
               </thead>
               <tbody>
                 {records.length > 0 ? (
-                  records.map((note, index) => {
+                  records.map((idea, index) => {
                     return (
-                      <tr key={index}>
-                        <td className="p-4">{note.BRANCHNAME}</td>
-                        <td className="p-4">{note.CURRENCYNUMBER}</td>
-                        <td className="p-4">{note.DENOMINATION}</td>
-                        <td className="p-4">{note.INITIATOR_BY}</td>
-                        <td className="p-4">{note.INITIATOR_DATE}</td>
-                        {/* <td className="p-4">{note.FILES}</td> */}
+                      <tr>
+                        <td className="p-4">{idea.campaignCategory}</td>
+                        <td className="p-4">{idea.campaignName}</td>
+                        <td className="p-4">{idea.createdBy}</td>
+                        <td className="p-4">{idea.initiatorBranch}</td>
+                        <td className="p-4">{idea.createdDate}</td>
                         <td className="p-4">
-                          {(() => {
-                            // Convert the byte data to a Blob
-                            const blob = new Blob(
-                              [new Uint8Array(note.FILES)],
-                              { type: "image/jpg" }
-                            ); // Adjust the type as needed
-
-                            // Create a data URL for the image
-                            const reader = new FileReader();
-                            reader.readAsDataURL(blob);
-
-                            // Use state to render the image
-
-                            reader.onload = function () {
-                              setImageSrc(reader.result);
-                            };
-
-                            return (
-                              <div>
-                                <img src={imageSrc} alt="Image" />
-                              </div>
-                            );
-                          })()}
-                        </td>
-
-                        <td className="p-4">
-                          <div className="flex items-center cursor-pointer">
+                          <div className="flex items-center justify-between cursor-pointer">
                             <BsFillCheckCircleFill
                               size={20}
                               color="green"
-                              onClick={(e) => handleAuthorization(e, note)}
+                              onClick={(e) => handleAuthorization(e, idea)}
                             />
                             <IoTrashBinSharp
                               size={20}
                               color="red"
                               className="ml-2"
-                              onClick={(e) => handleDecline(e, note)}
+                              onClick={(e) => handleDecline(e, idea)}
                             />
                           </div>
                         </td>
@@ -200,11 +156,11 @@ const CounterfeitPendingData = () => {
                               Are you sure you want to
                               {confirmationAction === "approve"
                                 ? " approve this transaction"
-                                : "decline this transaction"}
+                                : " decline this transaction"}
                             </div>
                             <div className="flex items-center justify-center">
                               <button
-                                onClick={(e) => handleConfirmation(e, note)}
+                                onClick={(e) => handleConfirmation(e, idea)}
                                 className="w-[120px] h-10 p-2 text-white text-sm font-semibold bg-green-600 rounded mr-4"
                               >
                                 Yes
@@ -218,28 +174,58 @@ const CounterfeitPendingData = () => {
                             </div>
                           </div>
                         </Modal>
-                        {/* <td className="p-4 flex items-center justify-center cursor-pointer">
+                        <td className="p-4 flex items-center justify-center cursor-pointer">
                           <BiDotsVertical
                             onClick={() => {
-                              setSelectedRowData(note);
+                              setSelectedRowData(idea);
                               return setDetails(true);
                             }}
                           />
-                        </td> */}
+                        </td>
                         <Modal
                           isVisible={details}
                           onClose={() => setDetails(false)}
                         >
-                          <div className="flex flex-col w-[600px] px-4">
+                          <div className="flex flex-col px-4">
                             <div className="font-semibold text-lg">
-                              noteCheque Details
+                              Campaign Details
                             </div>
                             <div className="my-4">
                               <div className="grid grid-cols-2 gap-4 mb-8">
                                 <div className="font-normal text-[#7b7878]">
-                                  FILE:
+                                  Campaign Name:
                                   <span className="ml-1 font-semibold text-black">
-                                    {selectedRowData.FILE}
+                                    {selectedRowData.campaignName}
+                                  </span>
+                                </div>
+                                <div className="font-normal text-[#7b7878]">
+                                  Campaign Category:
+                                  <span className="ml-1 font-semibold text-black">
+                                    {selectedRowData.campaignCategory}
+                                  </span>
+                                </div>
+                                <div className="font-normal text-[#7b7878]">
+                                  Campaign Initiator:
+                                  <span className="ml-1 font-semibold text-black">
+                                    {selectedRowData.createdBy}
+                                  </span>
+                                </div>
+                                <div className="font-normal text-[#7b7878]">
+                                  Initiator Group:
+                                  <span className="ml-1 font-semibold text-black">
+                                    {selectedRowData.groupOwner}
+                                  </span>
+                                </div>
+                                <div className="font-normal text-[#7b7878]">
+                                  Initiator Branch:
+                                  <span className="ml-1 font-semibold text-black">
+                                    {selectedRowData.initiatorBranch}
+                                  </span>
+                                </div>
+                                <div className="font-normal text-[#7b7878]">
+                                  Date Initiated:
+                                  <span className="ml-1 font-semibold text-black">
+                                    {selectedRowData.createdDate}
                                   </span>
                                 </div>
                               </div>
@@ -251,7 +237,7 @@ const CounterfeitPendingData = () => {
                   })
                 ) : (
                   <div className="flex items-center justify-center text-xl font-semibold">
-                    No CounterfeitNote for Approval!
+                    No Pending Campaign!
                   </div>
                 )}
               </tbody>
@@ -266,7 +252,7 @@ const CounterfeitPendingData = () => {
                   />
                 </li>
                 {numbers.map((n, i) => (
-                  <li key={i} className=" p-2">
+                  <li key={i} className="p-2">
                     <a href="#" onClick={() => changeCurrentPage(n)}>
                       {n}
                     </a>
@@ -295,4 +281,4 @@ const CounterfeitPendingData = () => {
   );
 };
 
-export default CounterfeitPendingData;
+export default PendingCampaign;

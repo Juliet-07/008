@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { LuThumbsUp, LuThumbsDown } from "react-icons/lu";
-import Modal from "../../components/Modal";
+import Modal from "../../../components/Modal";
 import { Input, Textarea } from "@material-tailwind/react";
+import { useParams } from "react-router-dom";
 
 const Description = () => {
+  const apiURL = import.meta.env.VITE_REACT_APP_GET_IDEA_HUB_EMPLOYEE;
+  const { campaignId } = useParams();
+  const [campaignInfo, setCampaignInfo] = useState(null);
+  const [leaderBoards, setLeaderBoard] = useState([]);
   const [details, setDetails] = useState(false);
   const leaderBoard = [
     {
@@ -35,19 +41,52 @@ const Description = () => {
       totalCoins: "50 Coins",
     },
   ];
+
+  useEffect(() => {
+    const getCampaignById = async () => {
+      try {
+        const url = `${apiURL}/GetCampaingnById?campaignId=${campaignId}`;
+        const response = await axios.get(url);
+        console.log(response);
+        setCampaignInfo(response.data.responseValue); // Set campaign information in state
+      } catch (error) {
+        console.error("Error fetching campaign information:", error);
+      }
+    };
+
+    const getLeaderBoardByCampaignId = async () => {
+      try {
+        const url = `${apiURL}/GetLeaderBoardByCampaignId?campaignId=${campaignId}`;
+        const response = await axios.get(url);
+        console.log(response);
+        setLeaderBoard(response.data.responseValue); // Set campaign information in state
+      } catch (error) {
+        console.error("Error fetching campaign information:", error);
+      }
+    };
+
+    getCampaignById();
+    getLeaderBoardByCampaignId();
+  }, [apiURL, campaignId]);
+
+  if (!campaignInfo) {
+    // Add loading indicator or error handling
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="w-full flex flex-col p-6">
       <div>
         <p className="uppercase text-[#84817E]">campaign</p>
-        <p className="text-sm">
-          🌟 Introducing our Innovation in Account Opening Campaign! 🌟
-        </p>
+        <p className="text-sm">🌟 {campaignInfo.campaignName} 🌟</p>
       </div>
       <div className="w-full flex items-center">
         <div className="w-full h-[80vh] 2xl:h-full 2xl:flex overflow-auto">
           <div className="w-[500px] bg-white/50 shadow-xl flex flex-col p-4">
             <div className="text-gray-500">Description:</div>
             <div className="w-[444px] text-xs">
+              {campaignInfo.details}
+              <br />
               At PremiumTrust Bank Limited, we believe in making banking
               seamless, efficient, and tailored to your needs. With our
               cutting-edge account opening process, you can now experience
@@ -91,7 +130,9 @@ const Description = () => {
               />
             </div>
             <div className="flex items-center justify-between mt-10">
-              <div className="text-[#84817E] text-xs">Posted 5 days ago</div>
+              <div className="text-[#84817E] text-xs">
+                Posted 5 days ago {campaignInfo.postedDays}
+              </div>
               <div className="flex items-center justify-between w-[150px]">
                 <p>👍 likes</p>
                 <p>👎 dislikes</p>

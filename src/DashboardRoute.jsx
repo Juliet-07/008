@@ -14,8 +14,6 @@ import CounterfeitNoteTeller from "./pages/bankingServices/counterfeitNoteTeller
 import CounterfeitNoteRequestForm from "./pages/bankingServices/counterfeitNoteForm";
 import CounterfeitApprover from "./pages/bankingServices/counterfeitNoteApprover";
 import CounterfeitNoteReport from "./pages/bankingServices/counterfeitNoteReport";
-import IdeaHub from "./pages/ideaHub/landingPage";
-import Description from "./pages/ideaHub/description";
 import Processes from "./pages/processes";
 import SupervisorPage from "./pages/access-request/supervisor";
 import CISOPage from "./pages/access-request/ciso";
@@ -24,6 +22,10 @@ import CIOPage from "./pages/access-request/cio";
 import AccessRequestHomePage from "./pages/access-request/home";
 import RequestorForm from "./pages/access-request/requestorForm";
 import Forms from "./pages/forms";
+import IdeaHubEmployee from "./pages/ideaHub/employee/landingPage";
+import Description from "./pages/ideaHub/employee/description";
+import ModeratorLandingPage from "./pages/ideaHub/moderator/landingPage";
+import ManagementLandingPage from "./pages/ideaHub/management/landingPage";
 
 const DashboardRoute = () => {
   return (
@@ -61,9 +63,20 @@ const DashboardRoute = () => {
             path="/applications/counterfeitNoteReport"
             element={<CounterfeitNoteReport />}
           />
-          <Route path="/applications/ideaHub" element={<IdeaHub />} />
           <Route
-            path="/applications/ideaDescription"
+            path="/applications/ideaHub-employee"
+            element={<IdeaHubEmployee />}
+          />
+          <Route
+            path="/applications/ideaHub-moderator"
+            element={<ModeratorLandingPage />}
+          />
+          <Route
+            path="/applications/ideaHub-management"
+            element={<ManagementLandingPage />}
+          />
+          <Route
+            path="/applications/ideaDescription/:campaignId"
             element={<Description />}
           />
           <Route path="/premiumKnowledgeExchange" element={<PKE />} />
