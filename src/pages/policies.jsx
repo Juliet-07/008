@@ -33,6 +33,7 @@ import RM04 from "../assets/Policies/RiskManagement/Loss Data Management Policy.
 import RM05 from "../assets/Policies/RiskManagement/Market Risk Management Policy _ 2023.pdf";
 import RM06 from "../assets/Policies/RiskManagement/Operational Risk Management Policy.pdf";
 import RM07 from "../assets/Policies/RiskManagement/Operational Risk Management - Standard Operating Proceedural Manual.pdf";
+import HEALTHPOLICY from "../assets/Policies/PremiumTrust Bank Executed Health and saftey Policy.pdf";
 import Modal from "../components/Modal";
 
 function classNames(...classes) {
@@ -55,6 +56,11 @@ const Policies = () => {
 
   const policies = [
     {
+      policyName: "Access Control Policy",
+      filePath: IFS06,
+      hasAttested: false,
+    },
+    {
       policyName: "AML_CFT Policy",
       filePath: AML,
       hasAttested: false,
@@ -70,18 +76,79 @@ const Policies = () => {
       hasAttested: false,
     },
     {
-      policyName: "Whistle Blowing Policy",
-      filePath: WHISTLE,
-      hasAttested: false,
-    },
-    {
       policyName: "Business Continuity Policy",
       filePath: RM01,
       hasAttested: false,
     },
     {
-      policyName: "Corporate Business Continuity Plan",
+      policyName: "Business Continuity Plan",
       filePath: RM02,
+      hasAttested: false,
+    },
+    {
+      policyName: "Code of Conduct & Ethics",
+      filePath: CODE_OF_CONDUCT,
+      hasAttested: false,
+    },
+    {
+      policyName: "Employee Dating Policy",
+      filePath: DATING,
+      hasAttested: false,
+    },
+    {
+      policyName: "Employee Handbook",
+      filePath: HANDBOOK,
+      hasAttested: false,
+    },
+    {
+      policyName: "Guidelines for Working in Secure Areas",
+      filePath: IFS12,
+      hasAttested: false,
+    },
+    {
+      policyName: "Health & Safety Policy",
+      filePath: HEALTHPOLICY,
+      hasAttested: false,
+    },
+    {
+      policyName: "Incident Response Procedure",
+      filePath: IFS09,
+      hasAttested: false,
+    },
+    {
+      policyName: "Information Classification Policy",
+      filePath: IFS04,
+      hasAttested: false,
+    },
+    {
+      policyName: "Information Security Guideline in Project Management",
+      filePath: IFS03,
+      hasAttested: false,
+    },
+    {
+      policyName: "Information Security Policy Manual",
+      filePath: INFOSECURITY,
+      hasAttested: false,
+    },
+    {
+      policyName: "Intellectual Property & Copyright Compliance Policy",
+      filePath: IFS11,
+      hasAttested: false,
+    },
+    {
+      policyName: "ISMS Roles, Responsibilities and Authorities",
+      filePath: IFS02,
+      hasAttested: false,
+    },
+    {
+      policyName: "ISMS Policy",
+      filePath: IFS14,
+      hasAttested: false,
+    },
+
+    {
+      policyName: "ISMS Legal and Regulatory Requirements Procedure",
+      filePath: IFS10,
       hasAttested: false,
     },
     {
@@ -111,30 +178,11 @@ const Policies = () => {
       hasAttested: false,
     },
     {
-      policyName: "Information Security Policy Manual",
-      filePath: INFOSECURITY,
-      hasAttested: false,
-    },
-    {
       policyName: "PTB Cyber Incident Response Plan",
       filePath: IFS01,
       hasAttested: false,
     },
-    {
-      policyName: "ISMS Roles, Responsibilities and Authorities",
-      filePath: IFS02,
-      hasAttested: false,
-    },
-    {
-      policyName: "Information Security Guideline in Project Management",
-      filePath: IFS03,
-      hasAttested: false,
-    },
-    {
-      policyName: "Information Classification Policy",
-      filePath: IFS04,
-      hasAttested: false,
-    },
+
     {
       policyName:
         "Procedure for Information Security Labelling and Asset Handling",
@@ -142,8 +190,8 @@ const Policies = () => {
       hasAttested: false,
     },
     {
-      policyName: "Access Control Policy",
-      filePath: IFS06,
+      policyName: "Procedure for the Management of Removable Media",
+      filePath: IFS13,
       hasAttested: false,
     },
     {
@@ -157,48 +205,8 @@ const Policies = () => {
       hasAttested: false,
     },
     {
-      policyName: "Incident Response Procedure",
-      filePath: IFS09,
-      hasAttested: false,
-    },
-    {
-      policyName: "ISMS Legal and Regulatory Requirements Procedure",
-      filePath: IFS10,
-      hasAttested: false,
-    },
-    {
-      policyName: "Intellectual Property & Copyright Compliance Policy",
-      filePath: IFS11,
-      hasAttested: false,
-    },
-    {
-      policyName: "Guidelines for Working in Secure Areas",
-      filePath: IFS12,
-      hasAttested: false,
-    },
-    {
-      policyName: "Procedure for the Management of Removable Media",
-      filePath: IFS13,
-      hasAttested: false,
-    },
-    {
-      policyName: "ISMS Policy",
-      filePath: IFS14,
-      hasAttested: false,
-    },
-    {
-      policyName: "Code of Conduct & Ethics",
-      filePath: CODE_OF_CONDUCT,
-      hasAttested: false,
-    },
-    {
-      policyName: "Employee Dating Policy",
-      filePath: DATING,
-      hasAttested: false,
-    },
-    {
-      policyName: "Employee Handbook",
-      filePath: HANDBOOK,
+      policyName: "Whistle Blowing Policy",
+      filePath: WHISTLE,
       hasAttested: false,
     },
   ];
