@@ -30,8 +30,8 @@ const Applications = () => {
   const user = JSON.parse(localStorage.getItem("userInfo"));
   const navigate = useNavigate();
   const [showSplash, setShowSplash] = useState(false);
-  let id = user.givenname;
-  // let id = "bsm.branch";
+  // let id = user.givenname;
+  let id = "bsm.branch";
   // let id = "review.hq";
 
   // const [email, setEmail] = useState("");
@@ -272,19 +272,6 @@ const Applications = () => {
       setShowSplash(false);
     }
   };
-
-  // const handleShowSplashScreen = () => {
-  //   setShowSplash(true);
-  //   setTimeout(() => {
-  //     window.location.href = "/applications/ideaHub";
-  //   }, 5000);
-  // };
-
-  // useEffect(() => {
-  //   return () => {
-  //     setShowSplash(false);
-  //   };
-  // }, []);
 
   return (
     <>

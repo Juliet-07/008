@@ -1,19 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
-import { AiFillFileAdd } from "react-icons/ai";
+import { useForm } from "react-hook-form";
 import {
   Card,
   CardHeader,
   Typography,
   CardBody,
 } from "@material-tailwind/react";
-import DataTable from "react-data-table-component";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { BiDotsVertical } from "react-icons/bi";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { MdSkipPrevious, MdSkipNext } from "react-icons/md";
+import { IoTrashBinSharp } from "react-icons/io5";
 import Modal from "../../components/Modal";
 import Select from "react-select";
 
@@ -21,43 +20,10 @@ const formatDate = (value) => {
   return moment(value).format("HH:MM A DD, MM, YYYY");
 };
 
-const column = [
-  { name: "Request Type", selector: (row) => row.accessTo },
-  { name: "Date Requested", selector: (row) => row.dateRequested },
-  {
-    name: "Status",
-    selector: (row) => row.statusDescription,
-  },
-  {
-    name: "Effective Date",
-    selector: (row) => formatDate(row.effectiveDate),
-  },
-];
-
-const customStyles = {
-  headRow: {
-    style: {
-      backgroundColor: "#2B2E35",
-      color: "white",
-    },
-  },
-  headCells: {
-    style: {
-      fontSize: "16px",
-      fontWeight: "600",
-      textTransform: "uppercase",
-    },
-  },
-  cells: {
-    style: {
-      fontSize: "13px",
-    },
-  },
-};
-
 export const ImplementerTable = () => {
   const user = JSON.parse(localStorage.getItem("userInfo"));
   const apiURL = import.meta.env.VITE_REACT_APP_GET_ACCESS_REQUEST;
+  const { handleSubmit } = useForm();
   const tableRef = useRef(null);
   const [requests, setRequests] = useState([]);
   const [details, setDetails] = useState(false);
@@ -67,12 +33,15 @@ export const ImplementerTable = () => {
   const [value, setValue] = useState("");
   const [employee, setEmployee] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState("");
+  const [employeeUnit, setEmployeeUnit] = useState("");
   const [value1, setValue1] = useState("");
   const [employee1, setEmployee1] = useState([]);
   const [selectedEmployee1, setSelectedEmployee1] = useState("");
+  const [employeeUnit1, setEmployeeUnit1] = useState("");
   const [value2, setValue2] = useState("");
   const [employee2, setEmployee2] = useState([]);
   const [selectedEmployee2, setSelectedEmployee2] = useState("");
+  const [employeeUnit2, setEmployeeUnit2] = useState("");
   // PAGINATION
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 10;
@@ -131,7 +100,6 @@ export const ImplementerTable = () => {
         },
       })
       .then((response) => {
-        console.log(response.data.data, "users");
         details = response.data.data;
         users = details.map((user) => {
           return { value: user.email, label: user.fullName };
@@ -174,8 +142,26 @@ export const ImplementerTable = () => {
   useEffect(() => {
     getRequestsToImplement();
     getAllEmployees();
-  }, []);
+  }, [selectedEmployee, selectedEmployee1, selectedEmployee2]);
 
+  const handleImplementerApproval = () => {
+    const url = `${apiURL}/UpdateAccessRequestApprovalsByImplementer`;
+    const payload = {
+      id: selectedRowData.id,
+      approvalLevel: 3,
+      approvalOneEmail: selectedEmployee.value,
+      approvalTwoEmail: selectedEmployee1.value,
+      approvalThreeEmail: selectedEmployee2.value,
+      approvalOneUnit: employeeUnit,
+      approvalTwoUnit: employeeUnit1,
+      approvalThreeUnit: employeeUnit2,
+    };
+    console.log(payload);
+    axios.post(url, payload).then((response) => {
+      console.log(response, "response from approving implementation");
+      toast.success(response.data.responseMessage);
+    });
+  };
   return (
     <Card className="h-full w-full">
       <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -222,6 +208,7 @@ export const ImplementerTable = () => {
                         <td className="p-4">{access.effectiveDate}</td>
                         <td className="p-4 flex items-center justify-center cursor-pointer">
                           <BiDotsVertical
+                            size={20}
                             onClick={() => {
                               setSelectedRowData(access);
                               return setDetails(true);
@@ -237,6 +224,12 @@ export const ImplementerTable = () => {
                                 setSelectedRowDataForForm(access);
                                 return setFormDetails(true);
                               }}
+                            />
+                            <IoTrashBinSharp
+                              size={20}
+                              color="red"
+                              className="ml-2"
+                              // onClick={(e) => handleDecline(e, access)}
                             />
                           </div>
                         </td>
@@ -358,10 +351,10 @@ export const ImplementerTable = () => {
                               Form to send approval levels
                             </div>
                             <form
-                              // onSubmit={handleSubmit(handleLoginValidation)}
+                              onSubmit={handleSubmit(handleImplementerApproval)}
                               className="w-[700px] my-6"
                             >
-                              <div className="flex flex-wrap -mx-3">
+                              {/* <div className="flex flex-wrap -mx-3">
                                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                   <label
                                     htmlFor="approvalOne"
@@ -392,15 +385,14 @@ export const ImplementerTable = () => {
                                     value={selectedRowDataForForm.requestorUnit}
                                   />
                                 </div>
-                              </div>
-
+                              </div> */}
                               <div className="flex flex-wrap -mx-3 mt-4">
                                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                   <label
-                                    htmlFor="approvalTwo"
-                                    className=" text-gray-800 "
+                                    htmlFor="userName"
+                                    className=" text-gray-800 mb-2"
                                   >
-                                    Approval Two Email
+                                    Approval One Email
                                   </label>
                                   <Select
                                     options={employee}
@@ -415,25 +407,26 @@ export const ImplementerTable = () => {
                                     htmlFor="password"
                                     className=" text-gray-800"
                                   >
-                                    Approval Two Unit
+                                    Approval One Unit
                                   </label>
                                   <input
-                                    type="password"
+                                    type="text"
                                     className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                                    name="password"
-                                    // value={password}
-                                    // onChange={handleChange}
+                                    name="employeeUnit"
+                                    value={employeeUnit}
+                                    onChange={(e) =>
+                                      setEmployeeUnit(e.target.value)
+                                    }
                                   />
                                 </div>
                               </div>
-
                               <div className="flex flex-wrap -mx-3 mt-4">
                                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                   <label
-                                    htmlFor="userName"
+                                    htmlFor="approvalTwo"
                                     className=" text-gray-800 "
                                   >
-                                    Approval Three Email
+                                    Approval Two Email
                                   </label>
                                   <Select
                                     options={employee1}
@@ -448,15 +441,16 @@ export const ImplementerTable = () => {
                                     htmlFor="password"
                                     className=" text-gray-800"
                                   >
-                                    Approval Three Unit
+                                    Approval Two Unit
                                   </label>
                                   <input
                                     type="text"
                                     className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                                    name="userName"
-                                    // value={userName}
-                                    // onChange={handleChange}
-                                    // required
+                                    name="employeeUnit1"
+                                    value={employeeUnit1}
+                                    onChange={(e) =>
+                                      setEmployeeUnit1(e.target.value)
+                                    }
                                   />
                                 </div>
                               </div>
@@ -467,7 +461,7 @@ export const ImplementerTable = () => {
                                     htmlFor="userName"
                                     className=" text-gray-800 "
                                   >
-                                    Approval Four Email
+                                    Approval Three Email
                                   </label>
                                   <Select
                                     options={employee2}
@@ -479,20 +473,23 @@ export const ImplementerTable = () => {
                                 </div>
                                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                   <label
-                                    htmlFor="password"
+                                    htmlFor="text"
                                     className=" text-gray-800"
                                   >
-                                    Approval Four Unit
+                                    Approval Three Unit
                                   </label>
                                   <input
-                                    type="password"
+                                    type="text"
                                     className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                                    name="password"
-                                    // value={password}
-                                    // onChange={handleChange}
+                                    name="employeeUnit2"
+                                    value={employeeUnit2}
+                                    onChange={(e) =>
+                                      setEmployeeUnit2(e.target.value)
+                                    }
                                   />
                                 </div>
                               </div>
+
                               <div className="mt-10">
                                 <button
                                   type="submit"
@@ -509,7 +506,7 @@ export const ImplementerTable = () => {
                   })
                 ) : (
                   <div className="flex items-center justify-center text-lg">
-                    No Report!
+                    No Requests!
                   </div>
                 )}
               </tbody>
@@ -524,7 +521,7 @@ export const ImplementerTable = () => {
                   />
                 </li>
                 {numbers.map((n, i) => (
-                  <li key={i} className="text-lg p-2">
+                  <li key={i} className="text-sm p-2">
                     <a href="#" onClick={() => changeCurrentPage(n)}>
                       {n}
                     </a>

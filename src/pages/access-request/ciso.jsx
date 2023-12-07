@@ -29,7 +29,7 @@ const CISOPage = () => {
       desc: <PendingTable />,
     },
     {
-      label: "All Requests",
+      label: "Approved Requests",
       value: "allRequests",
       icon: Cog6ToothIcon,
       desc: <AllTable />,
@@ -38,7 +38,7 @@ const CISOPage = () => {
 
   return (
     <div className="m-10">
-      <Tabs value="dashboard">
+      <Tabs value="myRequests">
         <TabsHeader>
           {data.map(({ label, value, icon }) => (
             <Tab key={value} value={value}>

@@ -406,6 +406,7 @@ export const SupervisorAssignedRequests = () => {
                         </td> */}
                           <td className="p-4 flex items-center justify-center cursor-pointer">
                             <BiDotsVertical
+                              size={20}
                               onClick={() => {
                                 setSelectedRowData(access);
                                 return setDetails(true);
@@ -544,7 +545,7 @@ export const SupervisorAssignedRequests = () => {
                     />
                   </li>
                   {numbers.map((n, i) => (
-                    <li key={i} className="text-lg p-2">
+                    <li key={i} className="text-sm p-2">
                       <a href="#" onClick={() => changeCurrentPage(n)}>
                         {n}
                       </a>
