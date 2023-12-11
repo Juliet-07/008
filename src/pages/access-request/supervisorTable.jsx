@@ -506,7 +506,7 @@ export const SupervisorAssignedRequests = () => {
                                       onClick={(e) => {
                                         handleAuthorization(e, selectedRowData);
                                       }}
-                                      type="submit"
+                                      type="button"
                                       className="w-[150px] h-10 p-2 text-white text-sm font-semibold bg-green-600 rounded mr-4 hover:bg-green-300"
                                     >
                                       Approve

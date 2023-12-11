@@ -32,7 +32,7 @@ const SupervisorPage = () => {
 
   return (
     <div className="m-10">
-      <Tabs value="dashboard">
+      <Tabs value="myRequests">
         <TabsHeader>
           {data.map(({ label, value, icon }) => (
             <Tab key={value} value={value}>

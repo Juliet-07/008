@@ -57,12 +57,12 @@ const RequestorForm = () => {
           console.log(response.data, "userdetails");
           let info;
           info = response.data.data;
-          setAccessForm({
-            requestorName: info.fullName,
-            requestorUnit: info.department,
-            staffRole: info.title,
-            requestorEmail: info.email,
-          });
+          // setAccessForm({
+          //   requestorName: info.fullName,
+          //   requestorUnit: info.department,
+          //   staffRole: info.title,
+          //   requestorEmail: info.email,
+          // });
         });
     }
   };
@@ -117,7 +117,7 @@ const RequestorForm = () => {
     duration: "",
     accessTo: "",
     accessFor: "",
-    accessToothers: "",
+    accessToOthers: "",
     privileges: "",
     additionalInformation: "",
     implementerEmail: "",
@@ -217,6 +217,7 @@ const RequestorForm = () => {
       implementerEmail: selectedGroup.value,
       implementerName: selectedEmployee.label,
       supervisorEmail: selectedSupervisor.value,
+      requestorEmail: "Jesupelumi.Oluwole@premiumtrustbank.com",
     };
     console.log(payload);
     axios.post(url, payload).then((response) => {
@@ -244,7 +245,8 @@ const RequestorForm = () => {
                 label="FullName"
                 name="requestorName"
                 value={requestorName}
-                disabled
+                onChange={handleChange}
+                // disabled
               />
               <div className="flex flex-wrap -mx-3">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -253,7 +255,8 @@ const RequestorForm = () => {
                     label="Role"
                     name="staffRole"
                     value={staffRole}
-                    disabled
+                    onChange={handleChange}
+                    // disabled
                   />
                 </div>
                 <div className="w-full md:w-1/2 px-3">
@@ -262,7 +265,8 @@ const RequestorForm = () => {
                     label="Department"
                     name="requestorUnit"
                     value={requestorUnit}
-                    disabled
+                    onChange={handleChange}
+                    // disabled
                   />
                 </div>
               </div>
@@ -311,7 +315,7 @@ const RequestorForm = () => {
                 </div>
                 <div className="w-full md:w-1/2 px-3">
                   <select
-                    className="block w-full text-gray-700 border border-[#9099a4] rounded py-3 px-4 mb-3 leading-tight focus:outline-none"
+                    className="block w-full text-gray-700 bg-white p-4 border border-[#9099a4] rounded py-3 px-4 mb-3 leading-tight focus:outline-none"
                     value={selectedOption}
                     onChange={handleSelectOptionChange}
                   >

@@ -55,7 +55,8 @@ export const ImplementerTable = () => {
     // let email = user.givenname;
     // let name = user.name
     // let email = "IT Infrastructure";
-    let name = "Damilola Falonipe";
+    // let name = "Damilola Falonipe";
+    let name = "Kenneth Nwanze"
     try {
       await axios
         .get(
