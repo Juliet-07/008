@@ -178,12 +178,12 @@ export const PendingTable = () => {
   const numbers = [...Array(npages + 1).keys()].slice(1);
 
   const getPendingRequests = async () => {
-    let email = user.givenname;
-    // let email = "Amechi.Ojei";
+    // let email = user.givenname;
+    let email = "Amechi.Ojei";
     try {
       await axios
         .get(
-          `${apiURL}/GetAllAccessRequestByApprovalNEmail?staffEmail=${email}@premiumtrustbank.com&statusCode=0001`
+          `${apiURL}/GetAllAccessRequestByApprovalNEmail?staffEmail=${email}@premiumtrustbank.com`
         )
         .then((response) => {
           console.log(response.data, "Pending Requests");
@@ -474,12 +474,12 @@ export const AllTable = () => {
   const numbers = [...Array(npages + 1).keys()].slice(1);
 
   const getApprovedRequests = async () => {
-    let email = user.givenname;
-    // let email = "Amechi.Ojei";
+    // let email = user.givenname;
+    let email = "Amechi.Ojei";
     try {
       await axios
         .get(
-          `${apiURL}/GetAllAccessRequestByRequesterEmail?requesterEmail=${email}@premiumtrustbank.com&statusCode=0002`
+          `${apiURL}/GetAllAccessRequestByApprovalNEmail?staffEmail=${email}@premiumtrustbank.com`
         )
         .then((response) => {
           console.log(response.data, "Access Request");

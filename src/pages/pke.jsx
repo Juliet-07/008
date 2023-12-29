@@ -11,6 +11,10 @@ const PKE = () => {
       title: "Attitude 101",
     },
     {
+      path: "https://premiumtrustbank-my.sharepoint.com/:p:/p/juliet_ohankwere/ES6otbEHXLtPgw9-ReOJ8OEBj7qMEAXb-hnRlVeTNdqx3g?e=woyHHu",
+      title: "Business Continuity Awareness",
+    },
+    {
       path: "https://premiumtrustbank-my.sharepoint.com/:p:/p/juliet_ohankwere/EffSRQOA111Hka9iMM2j4j8B6_V0YI_sTjq-jzMu-YNZBw?e=slCvN1",
       title: "Business Facilitation Act 2023",
     },
@@ -39,8 +43,20 @@ const PKE = () => {
       title: "Information Security (ISMS) Awareness",
     },
     {
+      path: "https://premiumtrustbank-my.sharepoint.com/:p:/p/juliet_ohankwere/ETDeuygPfe5NnGcCqxBDAhUBrpvT0VfuE_p3cpK1KGzKVg?e=SwsQLw",
+      title: "Internet Fraud - Detection & Prevention",
+    },
+    {
       path: "https://premiumtrustbank-my.sharepoint.com/:p:/p/juliet_ohankwere/EWM1ByiHTXRNlrm-83YLnQoBvxT-xYHLN_yMBrp7l0gSnQ?e=WopBZy",
       title: " IT Service Desk",
+    },
+    // {
+    //   path: "",
+    //   title: " KYC as a Value Creation Mechanism - 1",
+    // },
+    {
+      path: "https://premiumtrustbank-my.sharepoint.com/:p:/p/juliet_ohankwere/ER4HoIoa7gZOpZ-8Qd72oh0BTas251Fb6tZAiRCX_TXd2Q?e=aXDgyE",
+      title: " KYC as a Value Creation Mechanism - 2",
     },
     {
       path: "https://premiumtrustbank-my.sharepoint.com/:p:/p/juliet_ohankwere/EdOr9XSzxzlIiYu1TCbgLZYBgUUoGhcOLwaKOda7OmA8qg?e=7QfvXf",
@@ -55,8 +71,16 @@ const PKE = () => {
       title: " NDPR Awareness Workshop",
     },
     {
+      path: "https://premiumtrustbank-my.sharepoint.com/:b:/p/juliet_ohankwere/EfsG6nh7veVAne9bGEf5NdIBB4Hs6AD1xxZTOKbkG-Iyew?e=p4GS7v",
+      title: "Operational Risk Management",
+    },
+    {
       path: "https://premiumtrustbank-my.sharepoint.com/:b:/p/juliet_ohankwere/EfQsigIzDxFHs9RuegkPV5YB_vc4PF2asKDL755qv42iIw?e=cbbxzJ",
       title: "PCIDSS",
+    },
+    {
+      path: "https://premiumtrustbank-my.sharepoint.com/:b:/p/juliet_ohankwere/EXUd_fbBZgRLg6u8T4QCX1gBf-8MxGDsnD0yHhNcIswxRA?e=wTuNF3",
+      title: "Pension Reform Act",
     },
     {
       path: "https://premiumtrustbank-my.sharepoint.com/:p:/p/juliet_ohankwere/ESQHgorpqnpOtoAzTdbkkf0BEh-b29zcc_O08WF3UiTccg?e=c8Vdlq",

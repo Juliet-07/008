@@ -183,7 +183,7 @@ export const PendingTable = () => {
     try {
       await axios
         .get(
-          `${apiURL}/GetAllAccessRequestByApprovalNEmail?staffEmail=${email}@premiumtrustbank.com&statusCode=0001`
+          `${apiURL}/GetAllAccessRequestByApprovalNEmail?staffEmail=${email}@premiumtrustbank.com`
         )
         .then((response) => {
           console.log(response.data, "Pending Requests");
