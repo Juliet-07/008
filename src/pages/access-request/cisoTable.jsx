@@ -173,7 +173,10 @@ export const PendingTable = () => {
   const recordsPerPage = 10;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = requests.slice(firstIndex, lastIndex);
+  // const records = requests.slice(firstIndex, lastIndex);
+  const records = requests
+    .filter((request) => !request.oneHasApproved)
+    .slice(firstIndex, lastIndex);
   const npages = Math.ceil(requests.length / recordsPerPage);
   const numbers = [...Array(npages + 1).keys()].slice(1);
 

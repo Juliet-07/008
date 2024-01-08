@@ -244,8 +244,8 @@ const Applications = () => {
 
   let name = user.givenname;
   const handleUserIdeaHubRoleRoute = async () => {
-    let email = name;
-    // let email = "Sarah.Omoike";
+    // let email = name;
+    let email = "Sarah.Omoike";
     let user;
     let url = `http://192.168.201.57:449/api/UserApplications/getUserRoleByEmail&AppId?AppId=${APP_ID}&email=${email}@premiumtrustbank.com`;
     try {

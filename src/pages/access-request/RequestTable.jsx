@@ -57,7 +57,8 @@ export const RequestTable = () => {
 
   const getMyAccessRequests = async () => {
     // let email = user.givenname;
-    let email = "Damilola.Falonipe";
+    // let email = "Damilola.Falonipe";
+    let email = "Christian.Nnabuife"
     try {
       await axios
         .get(

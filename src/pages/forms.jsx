@@ -17,6 +17,9 @@ import FORM15 from "../assets/forms/new_multiple_local_funds_transfer_form.pdf";
 import FORM16 from "../assets/forms/referenceForm.pdf";
 import FORM17 from "../assets/forms/sms&Email_alert_form.pdf";
 import FORM18 from "../assets/forms/statementOfAccount.pdf";
+import FORM19 from "../assets/forms/ACCOUNT REACTIVATION FORM.pdf";
+import FORM20 from "../assets/forms/ATM Cash Load form PTB.pdf";
+import FORM21 from "../assets/forms/ORIGINAL Memo - Expense Claim Form.pdf";
 import Modal from "../components/Modal";
 
 const Forms = () => {
@@ -30,8 +33,16 @@ const Forms = () => {
       filePath: FORM1,
     },
     {
+      formName: "Account Reactivation",
+      filePath: FORM19,
+    },
+    {
       formName: "Account Update",
       filePath: FORM2,
+    },
+    {
+      formName: "ATM Cash Load",
+      filePath: FORM20,
     },
     {
       formName: "BVN",
@@ -80,6 +91,10 @@ const Forms = () => {
     {
       formName: "Mandate Card",
       filePath: FORM14,
+    },
+    {
+      formName: "Memo Expense Claim",
+      filePath: FORM21,
     },
     {
       formName: "Multiple Local Funds Transfer",
