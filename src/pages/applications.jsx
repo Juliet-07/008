@@ -27,11 +27,12 @@ import SplashScreen from "./ideaHub/SplashScreen";
 const Applications = () => {
   const apiURL = import.meta.env.VITE_REACT_APP_DUDCHEQUE;
   const APP_ID = import.meta.env.VITE_REACT_APP_IDEA_HUB_APP_ID;
+  const apiUrlPnd = import.meta.env.VITE_REACT_APP_PND;
   const user = JSON.parse(localStorage.getItem("userInfo"));
   const navigate = useNavigate();
   const [showSplash, setShowSplash] = useState(false);
-  // let id = user.givenname;
-  let id = "bsm.branch";
+  let id = user.givenname;
+  // let id = "bsm.branch";
   // let id = "review.hq";
 
   // const [email, setEmail] = useState("");
@@ -211,7 +212,7 @@ const Applications = () => {
       email: email,
     };
     try {
-      fetch(`${process.env.REACT_APP_PND}SignIn/PNDSignIn`, {
+      fetch(`${apiUrlPnd}SignIn/PNDSignIn`, {
         method: "POST",
         body: JSON.stringify(payload),
         headers: {

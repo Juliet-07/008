@@ -26,6 +26,10 @@ import IdeaHubEmployee from "./pages/ideaHub/employee/landingPage";
 import Description from "./pages/ideaHub/employee/description";
 import ModeratorLandingPage from "./pages/ideaHub/moderator/landingPage";
 import ManagementLandingPage from "./pages/ideaHub/management/landingPage";
+import PNDScreenRM from "./pages/pnd/pndScreenRM";
+import InitiatorHomePage from "./pages/pnd/pndInitiatorHome";
+import BSM from "./pages/pnd/pndBsm";
+import PNDScreenCP from "./pages/pnd/pndScreenCP";
 
 const DashboardRoute = () => {
   return (
@@ -79,6 +83,10 @@ const DashboardRoute = () => {
             path="/applications/ideaDescription/:campaignId"
             element={<Description />}
           />
+          <Route path="/applications/pndRM" element={<PNDScreenRM />} />
+          <Route path="/applications/pndHome" element={<InitiatorHomePage />} />
+          <Route path="/applications/pndBsm" element={<BSM />} />
+          <Route path="/applications/pndCP" element={<PNDScreenCP />} />
           <Route path="/premiumKnowledgeExchange" element={<PKE />} />
           <Route path="/manager" element={<ProfileManager />} />
           <Route path="/policies" element={<Policies />} />
