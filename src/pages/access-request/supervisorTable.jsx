@@ -417,7 +417,7 @@ export const SupervisorAssignedRequests = () => {
                             isVisible={details}
                             onClose={() => setDetails(false)}
                           >
-                            <div className="flex flex-col w-[800px] px-4">
+                            <div className="flex flex-col w-full px-4">
                               <div className="font-semibold text-lg">
                                 All Details on this request
                               </div>

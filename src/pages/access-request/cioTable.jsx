@@ -174,7 +174,7 @@ export const PendingTable = () => {
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const records = requests
-    .filter((request) => !request.threeHasApproved)
+    .filter((request) => request.twoHasApproved && !request.threeHasApproved)
     .slice(firstIndex, lastIndex);
   const npages = Math.ceil(requests.length / recordsPerPage);
   const numbers = [...Array(npages + 1).keys()].slice(1);
@@ -313,7 +313,7 @@ export const PendingTable = () => {
                           isVisible={details}
                           onClose={() => setDetails(false)}
                         >
-                          <div className="flex flex-col w-[800px] px-4">
+                          <div className="flex flex-col w-full px-4">
                             <div className="font-semibold text-lg">
                               All Details on this request
                             </div>
@@ -471,7 +471,9 @@ export const AllTable = () => {
   const recordsPerPage = 10;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = requests.slice(firstIndex, lastIndex);
+  const records = requests
+    .filter((request) => request.threeHasApproved)
+    .slice(firstIndex, lastIndex);
   const npages = Math.ceil(requests.length / recordsPerPage);
   const numbers = [...Array(npages + 1).keys()].slice(1);
 
