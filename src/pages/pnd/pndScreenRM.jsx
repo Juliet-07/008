@@ -48,7 +48,12 @@ const customStyles = {
 };
 
 const PNDScreenRM = () => {
+  const base_url = import.meta.env.VITE_REACT_APP_PND;
+  const user = JSON.parse(localStorage.getItem("userInfo"));
+  const _token = JSON.parse(localStorage.getItem("pndUser"));
+  let token = _token.token;
   const { handleSubmit } = useForm();
+
   const [accountNumberModel, setAccountNumberModel] = useState("");
   const [history, setHistory] = useState([]);
   const [userEmail, setUserEmail] = useState("");
@@ -57,11 +62,6 @@ const PNDScreenRM = () => {
   const [assignee, setAssignee] = useState("");
   const [others, setOthers] = useState(false);
   const [reason, setReason] = useState("");
-
-  const user = JSON.parse(localStorage.getItem("userInfo"));
-  const _token = JSON.parse(localStorage.getItem("pndUser"));
-  let token = _token.token;
-  const base_url = `${process.env.REACT_APP_PND}`;
 
   const GetCustomerInfo = () => {
     const url = `${base_url}CustomerInfo/GetCustomerInfo`;
@@ -167,8 +167,8 @@ const PNDScreenRM = () => {
       })
       .then((res) => {
         console.log(res.data, "place account on PND");
-        alert(res.data.data)
-        toast.success(res.data.message)
+        // alert(res.data.data);
+        toast.success(res.data.data);
       });
   };
 

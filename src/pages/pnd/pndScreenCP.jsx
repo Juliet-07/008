@@ -114,6 +114,9 @@ const PNDScreenCP = () => {
         toast.success("Details fetched Successfully");
         setPndDetails(pndData);
         setHistory(list);
+        if (result.data === null) {
+          return alert(result.message);
+        }
       })
       .catch((err) => console.log(err));
   };

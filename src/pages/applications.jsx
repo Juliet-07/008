@@ -35,7 +35,7 @@ const Applications = () => {
   // let id = "bsm.branch";
   // let id = "review.hq";
 
-  // const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("rm1@premiumtrustbank.com");
   // const [email, setEmail] = useState("tommy.lee@premiumtrustbank.com");
   // const [email, setEmail] = useState("bsm1@premiumtrustbank.com");
   const [email, setEmail] = useState("compliance1@premiumtrustbank.com");

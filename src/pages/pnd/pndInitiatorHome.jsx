@@ -4,6 +4,11 @@ import axios from "axios";
 import { MdSkipPrevious, MdSkipNext } from "react-icons/md";
 
 const InitiatorHomePage = () => {
+  const base_url = import.meta.env.VITE_REACT_APP_PND;
+  const user = JSON.parse(localStorage.getItem("userInfo"));
+  const _token = JSON.parse(localStorage.getItem("pndUser"));
+  let token = _token.token;
+  
   const [pnds, setPnds] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 10;
@@ -13,10 +18,6 @@ const InitiatorHomePage = () => {
   const npages = Math.ceil(pnds.length / recordsPerPage);
   const numbers = [...Array(npages + 1).keys()].slice(1);
 
-  const user = JSON.parse(localStorage.getItem("userInfo"));
-  const _token = JSON.parse(localStorage.getItem("pndUser"));
-  let token = _token.token;
-  const base_url = `${process.env.REACT_APP_PND}`;
   useEffect(() => {
     let email = user.givenname;
     const getMyPND = () => {
