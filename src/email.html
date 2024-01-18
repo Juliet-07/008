@@ -5,6 +5,142 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Email Template</title>
+    <style>
+      body {
+        background-color: #ffffff;
+        font-family: sans-serif;
+      }
+
+      .container {
+        width: 100%;
+        height: 100%;
+        padding: 2px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header img {
+        width: 80px;
+        height: 80px;
+      }
+      .date-pic {
+        display: flex;
+        align-items: center;
+      }
+      .transaction-details {
+        margin-top: 20px;
+      }
+
+      .transaction-details p {
+        margin-bottom: 10px;
+      }
+
+      .underline {
+        text-decoration: underline;
+      }
+
+      .balance {
+        margin-top: 20px;
+      }
+
+      .border-line {
+        border: 1px solid #000;
+        margin: 20px 0;
+      }
+
+      table {
+        width: 100%;
+        font-size: 14px;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        border: 1px solid #000;
+        padding: 10px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #4a5568;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <p>Dear Name of user</p>
+        <div class="date-pic">
+          <img
+            src="https://digital.premiumtrustbank.com/PremiumImage/Birthday.jpg"
+            alt="User Birthday"
+          />
+          <p>date</p>
+        </div>
+      </div>
+      <div class="transaction-details">
+        <p>
+          We wish to inform you that a Credit transaction occurred on your
+          account with us. <br />
+          The details of this transaction are shown below:
+        </p>
+        <b class="underline">Transaction Notification</b>
+        <p>
+          Account Number: <span>******0706</span> <br />
+          Transaction Location: <span>PREMIUM TRUST BANK HQ</span> <br />
+          Description:
+          <span
+            >NIP TRSF FROM ONOVO EMMANUEL CHUKWUDI MOBILE/UNION Transfer from
+            ONOVO EMMANUEL CHUKWUDI</span
+          >
+          <br />
+          Amount: <span>NGN 100,000.00</span> <br />
+          Value Date: <span>18-JAN-24</span> <br />
+          Remarks: <span>000NIPT240183962</span> <br />
+          Time of Transaction: <span>18-JAN-2024 09:19:10 AM</span>
+        </p>
+      </div>
+      <p class="balance">
+        The balances on this account as at 09:19 AM are as follows;
+      </p>
+      <div>
+        <p>Current Balance: <span>NGN 103,143.23</span></p>
+        <p>Available Balance: <span>NGN 103,143.23</span></p>
+      </div>
+      <div class="border-line"></div>
+      <table>
+        <thead>
+          <th>Date</th>
+          <th>Narative</th>
+          <th>Type</th>
+          <th>Amount (NGN)</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>date</td>
+            <td>narrative</td>
+            <td>type</td>
+            <td>amount</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Email Template</title>
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
@@ -91,4 +227,4 @@
       </table>
     </div>
   </body>
-</html>
+</html> -->
