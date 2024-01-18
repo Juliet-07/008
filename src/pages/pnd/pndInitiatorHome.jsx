@@ -99,6 +99,7 @@ const InitiatorHomePage = () => {
                 <th className="p-4">Account Name</th>
                 <th className="p-4">Account Number</th>
                 <th className="p-4">Account Type</th>
+                <th className="p-4">Date Created</th>
                 <th className="p-4">Status</th>
                 <th className="p-4">Action</th>
               </tr>
@@ -110,6 +111,7 @@ const InitiatorHomePage = () => {
                     <td className="p-4">{pnd.account_name}</td>
                     <td className="p-4">{pnd.account_number}</td>
                     <td className="p-4">{pnd.customerType}</td>
+                    <td className="p-4">{pnd.created_at}</td>
                     <td className="p-4">{pnd.status}</td>
                     <td className="p-4">
                       <div

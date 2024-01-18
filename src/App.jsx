@@ -11,6 +11,7 @@ import BulkPND from "./pages/pnd/pndCompliance/bulkPND";
 import UserManager from "./pages/pnd/pndCompliance/userManager";
 import NewUser from "./pages/pnd/pndCompliance/addNewUser";
 import Profile from "./pages/pnd/pndCompliance/profile";
+import EmailNewsletter from "./email-newsletter";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/userManager" element={<UserManager />} />
         <Route path="/userManager/newUser" element={<NewUser />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/email-newsletter" element={<EmailNewsletter />} />
         <Route path="/*" element={<DashboardRoute />} />
       </Routes>
     </>
