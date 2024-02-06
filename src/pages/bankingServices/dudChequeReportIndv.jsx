@@ -103,10 +103,6 @@ const DudChequeReportIndv = () => {
     });
   };
 
-  useEffect(() => {
-    getIndvDudCheque();
-  }, []);
-
   // export individual row to excel
   const exportToExcel = (data) => {
     const worksheet = XLSX.utils.json_to_sheet(data);
@@ -209,10 +205,15 @@ const DudChequeReportIndv = () => {
 
   const { onDownload } = useDownloadExcel({
     currentTableRef: tableRef.current,
-    filename: "DudCheque Report",
+    tablePayload: rangeData,
+    filename: "DudCheque Individual Report",
     sheet: "Indv Report",
   });
 
+  useEffect(() => {
+    getIndvDudCheque();
+    console.log(tableRef.current, "table payload");
+  }, []);
   return (
     <>
       <div className="flex flex-col items-center justify-center">
@@ -280,502 +281,523 @@ const DudChequeReportIndv = () => {
                 Submit
               </button>
             </form>
-            <div
+            {/* <div
               onClick={onDownload}
               className="flex items-center cursor-pointer w-[100px] h-10 bg-green-600 text-white font-semibold rounded p-2"
             >
               <AiOutlineDownload size={20} />
               <span className="pl-2"> as .xlsx</span>
-            </div>
+            </div> */}
           </div>
           {buttonClicked ? (
-            <div className="w-[1080px] 2xl:w-[1190px] flex flex-col items-center justify-center">
-              <table
-                ref={tableRef}
-                className="table bg-white text-sm text-left text-black px-4 w-full"
-              >
-                <thead className="bg-[#2B2E35] text-sm text-white font-semibold rounded-lg">
-                  <th className="p-4">Account Number</th>
-                  <th className="p-4">Cheque Number</th>
-                  <th className="p-4">Amount</th>
-                  <th className="p-4">Initiator</th>
-                  <th className="p-4">Date Initiated</th>
-                  <th className="p-4">Approver</th>
-                  <th className="p-4">Date Approved</th>
-                  <th className="p-4">User Branch</th>
-                  <th className="p-4"></th>
-                  <th className="p-4"></th>
-                  <th className="p-4 hidden">Account Name</th>
-                  <th className="p-4 hidden">Account Branch</th>
-                  <th className="p-4 hidden">MICR Number</th>
-                  <th className="p-4 hidden">Issuer Number</th>
-                  <th className="p-4 hidden">Issuer Name</th>
-                  <th className="p-4 hidden">Account Currency</th>
-                  <th className="p-4 hidden">Acount Open Date</th>
-                  <th className="p-4 hidden">Cheque Issued Date</th>
-                  <th className="p-4 hidden">Customer Number</th>
-                  <th className="p-4 hidden">Payee</th>
-                  <th className="p-4 hidden">Settled</th>
-                  <th className="p-4 hidden">Settlement Date</th>
-                  <th className="p-4 hidden">Sort Code</th>
-                  <th className="p-4 hidden">Transaction Date</th>
-                  <th className="p-4 hidden">Transaction Reference Number</th>
-                  <th className="p-4 hidden">First Name</th>
-                  <th className="p-4 hidden">Middle Name</th>
-                  <th className="p-4 hidden">Last Name</th>
-                  <th className="p-4 hidden">Date Of Birth</th>
-                  <th className="p-4 hidden">Gender</th>
-                  <th className="p-4 hidden">Phone Number</th>
-                  <th className="p-4 hidden">Marital Status</th>
-                  <th className="p-4 hidden">Nationality</th>
-                  <th className="p-4 hidden">Employment Status</th>
-                  <th className="p-4 hidden">Occupation</th>
-                  <th className="p-4 hidden">BVN</th>
-                  <th className="p-4 hidden">Identification Type</th>
-                  <th className="p-4 hidden">Identification Number</th>
-                  <th className="p-4 hidden">Business Sector</th>
-                  <th className="p-4 hidden">Borrower Type</th>
-                  <th className="p-4 hidden">Primary Address Line 1</th>
-                  <th className="p-4 hidden">Primary Address Line 2</th>
-                  <th className="p-4 hidden">Primary City</th>
-                  <th className="p-4 hidden">Primary State</th>
-                  <th className="p-4 hidden">Primary Country</th>
-                </thead>
-                <tbody>
-                  {rangeData.length > 0 ? (
-                    rangeData.map((dud) => {
-                      return (
-                        <tr>
-                          <td className="p-4">{dud.accountNo}</td>
-                          <td className="p-4 flex items-center justify-center">
-                            {dud.chqNo}
-                          </td>
-                          <td className="p-4">#{dud.amount}</td>
-                          <td className="p-4">{dud.initiator_name}</td>
-                          <td className="p-4 flex items-center justify-center">
-                            {dud.initiatorDate}
-                          </td>
-                          <td className="p-4">{dud.approval_name}</td>
-                          <td className="p-4">{dud.approval_Date}</td>
-                          <td className="p-4 flex items-center justify-center">
-                            {dud.initiate_Branch}
-                          </td>
-                          <td className="p-4 hidden"></td>
-                          <td className="p-4 hidden"></td>
-                          <td className="p-4 hidden">{dud.accountName}</td>
-                          <td className="p-4 hidden">{dud.accountBranch}</td>
-                          <td className="p-4 hidden">{dud.micrNo}</td>
-                          <td className="p-4 hidden">{dud.issuerNo}</td>
-                          <td className="p-4 hidden">{dud.issuerName}</td>
-                          <td className="p-4 hidden">{dud.ac_Ccy}</td>
-                          <td className="p-4 hidden">{dud.accountOpenDate}</td>
-                          <td className="p-4 hidden">{dud.chq_iss_date}</td>
-                          <td className="p-4 hidden">{dud.customerID}</td>
-                          <td className="p-4 hidden">{dud.payee}</td>
-                          <td className="p-4 hidden">{dud.settled}</td>
-                          <td className="p-4 hidden">{dud.settlmtDate}</td>
-                          <td className="p-4 hidden">{dud.sortCode}</td>
-                          <td className="p-4 hidden">{dud.trn_date}</td>
-                          <td className="p-4 hidden">{dud.trnRefNo}</td>
-                          <td className="p-4 hidden">{dud.firstName}</td>
-                          <td className="p-4 hidden">{dud.middleName}</td>
-                          <td className="p-4 hidden">{dud.surname}</td>
-                          <td className="p-4 hidden">{dud.dateOfBirth}</td>
-                          <td className="p-4 hidden">{dud.gender}</td>
-                          <td className="p-4 hidden">{dud.mobile}</td>
-                          <td className="p-4 hidden">{dud.maritalStatus}</td>
-                          <td className="p-4 hidden">{dud.nationality}</td>
-                          <td className="p-4 hidden">{dud.employmentStatus}</td>
-                          <td className="p-4 hidden">{dud.occupation}</td>
-                          <td className="p-4 hidden">{dud.bvn}</td>
-                          <td className="p-4 hidden">
-                            {dud.identificationType}
-                          </td>
-                          <td className="p-4 hidden">
-                            {dud.identificationNumber}
-                          </td>
-                          <td className="p-4 hidden">{dud.busSector}</td>
-                          <td className="p-4 hidden">{dud.borrowerType}</td>
-                          <td className="p-4 hidden">{dud.priAddressLine1}</td>
-                          <td className="p-4 hidden">{dud.priAddressLine2}</td>
-                          <td className="p-4 hidden">{dud.priCity}</td>
-                          <td className="p-4 hidden">{dud.priState}</td>
-                          <td className="p-4 hidden">{dud.priCountry}</td>
-                          <td className="p-4">
-                            <div className=" flex items-center justify-center cursor-pointer">
-                              <ImDownload2
-                                className="mx-4"
-                                color="green"
-                                size={20}
-                                onClick={() => {
-                                  // Define a function to gather data for the current row
-                                  const rowData = {
-                                    AccountNumber: dud.accountNo,
-                                    AccountName: dud.accountName,
-                                    AccountBranch: dud.accountBranch,
-                                    AccountOpenDate: dud.accountOpenDate,
-                                    AccountCurrency: dud.ac_Ccy,
-                                    Amount: dud.amount,
-                                    CustomerNumber: dud.customerID,
-                                    ChequeNumber: dud.chqNo,
-                                    ChequeIssuedDate: dud.chq_iss_date,
-                                    MICRNumber: dud.micrNo,
-                                    IssuerName: dud.issuerName,
-                                    IssuerNumber: dud.issuerNo,
-                                    TransactionDate: dud.trn_date,
-                                    TransactionReference: dud.trnRefNo,
-                                    Payee: dud.payee,
-                                    Settled: dud.settled,
-                                    SettlementDate: dud.settlmtDate,
-                                    SortCode: dud.sortCode,
-                                    Initiator: dud.initiator_name,
-                                    DateInitiated: dud.initiatorDate,
-                                    Approver: dud.approval_name,
-                                    DateApproved: dud.approval_Date,
-                                    UserBranch: dud.initiate_Branch,
-                                    FirstName: dud.firstName,
-                                    MiddleName: dud.middleName,
-                                    LastName: dud.surname,
-                                    DateOfBirth: dud.dateOfBirth,
-                                    Gender: dud.gender,
-                                    PhoneNumber: dud.mobile,
-                                    MaritalStatus: dud.maritalStatus,
-                                    Nationality: dud.nationality,
-                                    EmploymentStatus: dud.employmentStatus,
-                                    Occupation: dud.occupation,
-                                    BVN: dud.bvn,
-                                    IdentificationType: dud.identificationType,
-                                    IdentificationNumber:
-                                      dud.identificationNumber,
-                                    BusinessSector: dud.busSector,
-                                    BorrowerType: dud.borrowerType,
-                                    PrimaryAddressLine1: dud.priAddressLine1,
-                                    PrimaryAddressLine2: dud.priAddressLine2,
-                                    PrimaryCity: dud.priCity,
-                                    PrimaryState: dud.priState,
-                                    PrimaryCountry: dud.priCountry,
-                                    // Include all the hidden data fields here
-                                  };
+            <>
+              <div className="flex items-center justify-between">
+                <div className="my-4 font-semibold text-xl underline">
+                  Results From Search
+                </div>
+                <div
+                  onClick={onDownload}
+                  className="flex items-center cursor-pointer h-10 bg-green-600 text-white font-semibold rounded p-2"
+                >
+                  <AiOutlineDownload size={20} />
+                  <span className="pl-2"> Download Report By Range</span>
+                </div>
+              </div>
+              <div className="w-[1080px] 2xl:w-[1190px] flex flex-col items-center justify-center">
+                <table
+                  ref={tableRef}
+                  className="table bg-white text-sm text-left text-black px-4 w-full"
+                >
+                  <thead className="bg-[#2B2E35] text-sm text-white font-semibold rounded-lg">
+                    <th className="p-4">Account Number</th>
+                    <th className="p-4">Cheque Number</th>
+                    <th className="p-4">Amount</th>
+                    <th className="p-4">Initiator</th>
+                    <th className="p-4">Date Initiated</th>
+                    <th className="p-4">Approver</th>
+                    <th className="p-4">Date Approved</th>
+                    <th className="p-4">User Branch</th>
+                    <th className="p-4"></th>
+                    <th className="p-4"></th>
+                    <th className="p-4 hidden">Account Name</th>
+                    <th className="p-4 hidden">Account Branch</th>
+                    <th className="p-4 hidden">MICR Number</th>
+                    <th className="p-4 hidden">Issuer Number</th>
+                    <th className="p-4 hidden">Issuer Name</th>
+                    <th className="p-4 hidden">Account Currency</th>
+                    <th className="p-4 hidden">Acount Open Date</th>
+                    <th className="p-4 hidden">Cheque Issued Date</th>
+                    <th className="p-4 hidden">Customer Number</th>
+                    <th className="p-4 hidden">Payee</th>
+                    <th className="p-4 hidden">Settled</th>
+                    <th className="p-4 hidden">Settlement Date</th>
+                    <th className="p-4 hidden">Sort Code</th>
+                    <th className="p-4 hidden">Transaction Date</th>
+                    <th className="p-4 hidden">Transaction Reference Number</th>
+                    <th className="p-4 hidden">First Name</th>
+                    <th className="p-4 hidden">Middle Name</th>
+                    <th className="p-4 hidden">Last Name</th>
+                    <th className="p-4 hidden">Date Of Birth</th>
+                    <th className="p-4 hidden">Gender</th>
+                    <th className="p-4 hidden">Phone Number</th>
+                    <th className="p-4 hidden">Marital Status</th>
+                    <th className="p-4 hidden">Nationality</th>
+                    <th className="p-4 hidden">Employment Status</th>
+                    <th className="p-4 hidden">Occupation</th>
+                    <th className="p-4 hidden">BVN</th>
+                    <th className="p-4 hidden">Identification Type</th>
+                    <th className="p-4 hidden">Identification Number</th>
+                    <th className="p-4 hidden">Business Sector</th>
+                    <th className="p-4 hidden">Borrower Type</th>
+                    <th className="p-4 hidden">Primary Address Line 1</th>
+                    <th className="p-4 hidden">Primary Address Line 2</th>
+                    <th className="p-4 hidden">Primary City</th>
+                    <th className="p-4 hidden">Primary State</th>
+                    <th className="p-4 hidden">Primary Country</th>
+                  </thead>
+                  <tbody>
+                    {rangeData.length > 0 ? (
+                      rangeData.map((dud) => {
+                        return (
+                          <tr>
+                            <td className="p-4">{dud.accountNo}</td>
+                            <td className="p-4 flex items-center justify-center">
+                              {dud.chqNo}
+                            </td>
+                            <td className="p-4">#{dud.amount}</td>
+                            <td className="p-4">{dud.initiator_name}</td>
+                            <td className="p-4 flex items-center justify-center">
+                              {dud.initiatorDate}
+                            </td>
+                            <td className="p-4">{dud.approval_name}</td>
+                            <td className="p-4">{dud.approval_Date}</td>
+                            <td className="p-4 flex items-center justify-center">
+                              {dud.initiate_Branch}
+                            </td>
+                            <td className="p-4 hidden"></td>
+                            <td className="p-4 hidden"></td>
+                            <td className="p-4 hidden">{dud.accountName}</td>
+                            <td className="p-4 hidden">{dud.accountBranch}</td>
+                            <td className="p-4 hidden">{dud.micrNo}</td>
+                            <td className="p-4 hidden">{dud.issuerNo}</td>
+                            <td className="p-4 hidden">{dud.issuerName}</td>
+                            <td className="p-4 hidden">{dud.ac_Ccy}</td>
+                            <td className="p-4 hidden">
+                              {dud.accountOpenDate}
+                            </td>
+                            <td className="p-4 hidden">{dud.chq_iss_date}</td>
+                            <td className="p-4 hidden">{dud.customerID}</td>
+                            <td className="p-4 hidden">{dud.payee}</td>
+                            <td className="p-4 hidden">{dud.settled}</td>
+                            <td className="p-4 hidden">{dud.settlmtDate}</td>
+                            <td className="p-4 hidden">{dud.sortCode}</td>
+                            <td className="p-4 hidden">{dud.trn_date}</td>
+                            <td className="p-4 hidden">{dud.trnRefNo}</td>
+                            <td className="p-4 hidden">{dud.firstName}</td>
+                            <td className="p-4 hidden">{dud.middleName}</td>
+                            <td className="p-4 hidden">{dud.surname}</td>
+                            <td className="p-4 hidden">{dud.dateOfBirth}</td>
+                            <td className="p-4 hidden">{dud.gender}</td>
+                            <td className="p-4 hidden">{dud.mobile}</td>
+                            <td className="p-4 hidden">{dud.maritalStatus}</td>
+                            <td className="p-4 hidden">{dud.nationality}</td>
+                            <td className="p-4 hidden">
+                              {dud.employmentStatus}
+                            </td>
+                            <td className="p-4 hidden">{dud.occupation}</td>
+                            <td className="p-4 hidden">{dud.bvn}</td>
+                            <td className="p-4 hidden">
+                              {dud.identificationType}
+                            </td>
+                            <td className="p-4 hidden">
+                              {dud.identificationNumber}
+                            </td>
+                            <td className="p-4 hidden">{dud.busSector}</td>
+                            <td className="p-4 hidden">{dud.borrowerType}</td>
+                            <td className="p-4 hidden">
+                              {dud.priAddressLine1}
+                            </td>
+                            <td className="p-4 hidden">
+                              {dud.priAddressLine2}
+                            </td>
+                            <td className="p-4 hidden">{dud.priCity}</td>
+                            <td className="p-4 hidden">{dud.priState}</td>
+                            <td className="p-4 hidden">{dud.priCountry}</td>
+                            <td className="p-4">
+                              <div className=" flex items-center justify-center cursor-pointer">
+                                <ImDownload2
+                                  className="mx-4"
+                                  color="green"
+                                  size={20}
+                                  onClick={() => {
+                                    // Define a function to gather data for the current row
+                                    const rowData = {
+                                      AccountNumber: dud.accountNo,
+                                      AccountName: dud.accountName,
+                                      AccountBranch: dud.accountBranch,
+                                      AccountOpenDate: dud.accountOpenDate,
+                                      AccountCurrency: dud.ac_Ccy,
+                                      Amount: dud.amount,
+                                      CustomerNumber: dud.customerID,
+                                      ChequeNumber: dud.chqNo,
+                                      ChequeIssuedDate: dud.chq_iss_date,
+                                      MICRNumber: dud.micrNo,
+                                      IssuerName: dud.issuerName,
+                                      IssuerNumber: dud.issuerNo,
+                                      TransactionDate: dud.trn_date,
+                                      TransactionReference: dud.trnRefNo,
+                                      Payee: dud.payee,
+                                      Settled: dud.settled,
+                                      SettlementDate: dud.settlmtDate,
+                                      SortCode: dud.sortCode,
+                                      Initiator: dud.initiator_name,
+                                      DateInitiated: dud.initiatorDate,
+                                      Approver: dud.approval_name,
+                                      DateApproved: dud.approval_Date,
+                                      UserBranch: dud.initiate_Branch,
+                                      FirstName: dud.firstName,
+                                      MiddleName: dud.middleName,
+                                      LastName: dud.surname,
+                                      DateOfBirth: dud.dateOfBirth,
+                                      Gender: dud.gender,
+                                      PhoneNumber: dud.mobile,
+                                      MaritalStatus: dud.maritalStatus,
+                                      Nationality: dud.nationality,
+                                      EmploymentStatus: dud.employmentStatus,
+                                      Occupation: dud.occupation,
+                                      BVN: dud.bvn,
+                                      IdentificationType:
+                                        dud.identificationType,
+                                      IdentificationNumber:
+                                        dud.identificationNumber,
+                                      BusinessSector: dud.busSector,
+                                      BorrowerType: dud.borrowerType,
+                                      PrimaryAddressLine1: dud.priAddressLine1,
+                                      PrimaryAddressLine2: dud.priAddressLine2,
+                                      PrimaryCity: dud.priCity,
+                                      PrimaryState: dud.priState,
+                                      PrimaryCountry: dud.priCountry,
+                                      // Include all the hidden data fields here
+                                    };
 
-                                  // Call the export function with the data
-                                  exportToExcel([rowData]);
-                                }}
-                              />
+                                    // Call the export function with the data
+                                    exportToExcel([rowData]);
+                                  }}
+                                />
 
-                              <ImDownload2
-                                color="red"
-                                size={20}
-                                onClick={() => {
-                                  // Define a function to gather data for the current row
-                                  const rowData = {
-                                    accountNo: dud.accountNo,
-                                    accountName: dud.accountName,
-                                    accountBranch: dud.accountBranch,
-                                    accountOpenDate: dud.accountOpenDate,
-                                    ac_Ccy: dud.ac_Ccy,
-                                    amount: dud.amount,
-                                    customerID: dud.customerID,
-                                    chqNo: dud.chqNo,
-                                    chq_iss_date: dud.chq_iss_date,
-                                    micrNo: dud.micrNo,
-                                    issuerName: dud.issuerName,
-                                    issuerNo: dud.issuerNo,
-                                    trn_date: dud.trn_date,
-                                    trnRefNo: dud.trnRefNo,
-                                    payee: dud.payee,
-                                    settled: dud.settled,
-                                    settlmtDate: dud.settlmtDate,
-                                    sortCode: dud.sortCode,
-                                    initiator_name: dud.initiator_name,
-                                    initiatorDate: dud.initiatorDate,
-                                    approval_name: dud.approval_name,
-                                    approval_Date: dud.approval_Date,
-                                    initiate_Branch: dud.initiate_Branch,
-                                    firstName: dud.firstName,
-                                    middleName: dud.middleName,
-                                    surname: dud.surname,
-                                    dateOfBirth: dud.dateOfBirth,
-                                    gender: dud.gender,
-                                    mobile: dud.mobile,
-                                    maritalStatus: dud.maritalStatus,
-                                    nationality: dud.nationality,
-                                    employmentStatus: dud.employmentStatus,
-                                    occupation: dud.occupation,
-                                    bvn: dud.bvn,
-                                    identificationType: dud.identificationType,
-                                    identificationNumber:
-                                      dud.identificationNumber,
-                                    busSector: dud.busSector,
-                                    borrowerType: dud.borrowerType,
-                                    priAddressLine1: dud.priAddressLine1,
-                                    priAddressLine2: dud.priAddressLine2,
-                                    priCity: dud.priCity,
-                                    priState: dud.priState,
-                                    priCountry: dud.priCountry,
-                                    // Include all the hidden data fields here
-                                  };
+                                <ImDownload2
+                                  color="red"
+                                  size={20}
+                                  onClick={() => {
+                                    // Define a function to gather data for the current row
+                                    const rowData = {
+                                      accountNo: dud.accountNo,
+                                      accountName: dud.accountName,
+                                      accountBranch: dud.accountBranch,
+                                      accountOpenDate: dud.accountOpenDate,
+                                      ac_Ccy: dud.ac_Ccy,
+                                      amount: dud.amount,
+                                      customerID: dud.customerID,
+                                      chqNo: dud.chqNo,
+                                      chq_iss_date: dud.chq_iss_date,
+                                      micrNo: dud.micrNo,
+                                      issuerName: dud.issuerName,
+                                      issuerNo: dud.issuerNo,
+                                      trn_date: dud.trn_date,
+                                      trnRefNo: dud.trnRefNo,
+                                      payee: dud.payee,
+                                      settled: dud.settled,
+                                      settlmtDate: dud.settlmtDate,
+                                      sortCode: dud.sortCode,
+                                      initiator_name: dud.initiator_name,
+                                      initiatorDate: dud.initiatorDate,
+                                      approval_name: dud.approval_name,
+                                      approval_Date: dud.approval_Date,
+                                      initiate_Branch: dud.initiate_Branch,
+                                      firstName: dud.firstName,
+                                      middleName: dud.middleName,
+                                      surname: dud.surname,
+                                      dateOfBirth: dud.dateOfBirth,
+                                      gender: dud.gender,
+                                      mobile: dud.mobile,
+                                      maritalStatus: dud.maritalStatus,
+                                      nationality: dud.nationality,
+                                      employmentStatus: dud.employmentStatus,
+                                      occupation: dud.occupation,
+                                      bvn: dud.bvn,
+                                      identificationType:
+                                        dud.identificationType,
+                                      identificationNumber:
+                                        dud.identificationNumber,
+                                      busSector: dud.busSector,
+                                      borrowerType: dud.borrowerType,
+                                      priAddressLine1: dud.priAddressLine1,
+                                      priAddressLine2: dud.priAddressLine2,
+                                      priCity: dud.priCity,
+                                      priState: dud.priState,
+                                      priCountry: dud.priCountry,
+                                      // Include all the hidden data fields here
+                                    };
 
-                                  // Call the export function with the data
-                                  exportToPDF([rowData]);
-                                }}
-                              />
-                            </div>
-                          </td>
-                          <td className="p-4 flex items-center justify-center cursor-pointer">
-                            <BiDotsVertical
-                              onClick={() => {
-                                setSelectedRowData(dud);
-                                return setDetails(true);
-                              }}
-                            />
-                          </td>
-                          <Modal
-                            isVisible={details}
-                            onClose={() => setDetails(false)}
-                          >
-                            <div className="flex flex-col w-[800px] px-4">
-                              <div className="font-semibold text-lg">
-                                All Details on this transaction
+                                    // Call the export function with the data
+                                    exportToPDF([rowData]);
+                                  }}
+                                />
                               </div>
-                              <div className="my-4">
-                                <div className="grid grid-cols-2 gap-4 mb-8">
-                                  <div className="font-normal text-[#7b7878]">
-                                    Account Name:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.accountName}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Account Branch:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.accountBranch}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Account Open Date:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.accountOpenDate}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Account Currency:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.ac_Ccy}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Cheque Number:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.chqNo}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Cheque Issued Date:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.chq_iss_date}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    MICR Number:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.micrNo}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Issuer Number:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.issuerNo}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Issuer Name:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.issuerName}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    MICR Number:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.micrNo}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Payee:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.payee}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Transaction Date:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.trn_date}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Transaction Reference Number:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.trnRefNo}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Settled:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.settled}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Settlement Date:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.settlmtDate}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Sort Code:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.sortCode}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    First Name:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.firstName}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Middle Name:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.middleName}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Last Name:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.surname}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Date Of Birth:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.dateOfBirth}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Gender:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.gender}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Phone Number:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.mobile}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Bank Verification Number:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.bvn}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Marital Status:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.maritalStatus}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Nationality:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.nationality}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Employment Status:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.employmentStatus}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Occupation:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.occupation}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Identification Type:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.identificationType}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Identification Number:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.identificationNumber}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Business Sector:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.busSector}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Borrower Type:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.borrowerType}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Primary Address Line 1:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.priAddressLine1}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Primary Address Line 2:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.priAddressLine2}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Primary City:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.priCity}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Primary State:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.priState}
-                                    </span>
-                                  </div>
-                                  <div className="font-normal text-[#7b7878]">
-                                    Primary Country:
-                                    <span className="ml-1 font-semibold text-black">
-                                      {selectedRowData.priCountry}
-                                    </span>
+                            </td>
+                            <td className="p-4 flex items-center justify-center cursor-pointer">
+                              <BiDotsVertical
+                                onClick={() => {
+                                  setSelectedRowData(dud);
+                                  return setDetails(true);
+                                }}
+                              />
+                            </td>
+                            <Modal
+                              isVisible={details}
+                              onClose={() => setDetails(false)}
+                            >
+                              <div className="flex flex-col w-[800px] px-4">
+                                <div className="font-semibold text-lg">
+                                  All Details on this transaction
+                                </div>
+                                <div className="my-4">
+                                  <div className="grid grid-cols-2 gap-4 mb-8">
+                                    <div className="font-normal text-[#7b7878]">
+                                      Account Name:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.accountName}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Account Branch:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.accountBranch}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Account Open Date:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.accountOpenDate}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Account Currency:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.ac_Ccy}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Cheque Number:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.chqNo}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Cheque Issued Date:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.chq_iss_date}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      MICR Number:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.micrNo}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Issuer Number:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.issuerNo}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Issuer Name:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.issuerName}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      MICR Number:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.micrNo}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Payee:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.payee}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Transaction Date:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.trn_date}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Transaction Reference Number:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.trnRefNo}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Settled:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.settled}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Settlement Date:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.settlmtDate}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Sort Code:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.sortCode}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      First Name:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.firstName}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Middle Name:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.middleName}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Last Name:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.surname}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Date Of Birth:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.dateOfBirth}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Gender:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.gender}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Phone Number:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.mobile}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Bank Verification Number:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.bvn}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Marital Status:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.maritalStatus}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Nationality:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.nationality}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Employment Status:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.employmentStatus}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Occupation:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.occupation}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Identification Type:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.identificationType}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Identification Number:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.identificationNumber}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Business Sector:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.busSector}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Borrower Type:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.borrowerType}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Primary Address Line 1:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.priAddressLine1}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Primary Address Line 2:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.priAddressLine2}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Primary City:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.priCity}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Primary State:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.priState}
+                                      </span>
+                                    </div>
+                                    <div className="font-normal text-[#7b7878]">
+                                      Primary Country:
+                                      <span className="ml-1 font-semibold text-black">
+                                        {selectedRowData.priCountry}
+                                      </span>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          </Modal>
-                        </tr>
-                      );
-                    })
-                  ) : (
-                    <div className="flex items-center justify-center text-xl font-semibold">
-                      No DudCheque Report!
-                    </div>
-                  )}
-                </tbody>
-              </table>
-            </div>
+                            </Modal>
+                          </tr>
+                        );
+                      })
+                    ) : (
+                      <div className="flex items-center justify-center text-xl font-semibold">
+                        No DudCheque Report!
+                      </div>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </>
           ) : (
             <div className="w-[1080px] 2xl:w-[1190px] flex flex-col items-center justify-center">
-              <table
-                ref={tableRef}
-                className="table bg-white text-sm text-left text-black px-4 w-full"
-              >
+              <table className="table bg-white text-sm text-left text-black px-4 w-full">
                 <thead className="bg-[#2B2E35] text-sm text-white font-semibold rounded-lg">
                   <th className="p-4">Account Number</th>
                   <th className="p-4">Cheque Number</th>

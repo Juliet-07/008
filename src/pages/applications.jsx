@@ -96,7 +96,7 @@ const Applications = () => {
     },
     {
       icon: <BsCashCoin size={30} />,
-      path: "http://192.168.201.80:8080/bpm-0/application.ms",
+      path: "http://wfservice.premiumtrustbank.com:8080/bpm-0/logonpage.ms",
       title: "Expense & Cash Advance",
     },
     {

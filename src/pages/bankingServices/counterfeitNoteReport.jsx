@@ -55,10 +55,6 @@ const CounterfeitNoteReport = () => {
     });
   };
 
-  useEffect(() => {
-    getCounterfeitNote();
-  }, []);
-
   const toggleBranchType = (index) => {
     const updatedShowBranchTypes = [...showBranchType];
     updatedShowBranchTypes[index] = !updatedShowBranchTypes[index];
@@ -78,36 +74,29 @@ const CounterfeitNoteReport = () => {
     }
   };
 
-  const { onDownload: onDownloadAll } = useDownloadExcel({
-    currentTableRef: tableRef.current,
+  // const { onDownload } = useDownloadExcel({
+  //   currentTableRef: tableRef.current,
+  //   filename: "CounterfeitNote Report",
+  //   sheet: "All Report",
+  // });
+  const { onDownload } = useDownloadExcel({
+    currentTableRef: tableRef.current, // Pass the ref directly
+    tablePayload: rangeData, // Pass the data to be exported
     filename: "CounterfeitNote Report",
     sheet: "All Report",
   });
 
-  const onDownloadIndividual = (branchType) => {
-    const currentTableRef = tableRef.current[branchType];
+  useEffect(() => {
+    getCounterfeitNote();
+    console.log(tableRef.current, "table payload");
+  }, []);
 
-    if (currentTableRef) {
-      onDownloadAll(); // Download all tables (if needed)
-
-      // Customize the download for the individual table
-      const filename = `CounterfeitNote Report - ${branchType}`;
-      const sheet = "Individual Report";
-
-      onDownload({
-        currentTableRef,
-        filename,
-        sheet,
-      });
-    }
-  };
   return (
     <>
       <div className="flex flex-col items-center justify-center">
         <div className="font-bold text-2xl uppercase my-4">
           counterfeitNote report
         </div>
-        {/* individual accounts */}
         <div className="w-[1080px] 2xl:w-[1200px] rounded-lg bg-white p-4">
           <div className="flex items-end justify-between">
             <form
@@ -171,63 +160,74 @@ const CounterfeitNoteReport = () => {
                 Submit
               </button>
             </form>
-            <div
+            {/* <div
               className="flex items-center justify-center cursor-pointer w-[150px] h-[45px] bg-green-600 text-white font-semibold rounded mb-3"
-              onClick={onDownloadAll}
+              onClick={onDownload}
             >
               <AiOutlineDownload size={20} />
               <span>Export as .xlsx</span>
-            </div>
+            </div> */}
           </div>
 
           {buttonClicked ? (
-            <div className="w-[1080px] 2xl:w-[1190px] flex flex-col items-center justify-center">
-              <table
-                ref={tableRef}
-                className="table bg-white text-sm text-left text-black px-4 w-full"
-              >
-                <thead className="bg-[#2B2E35] text-sm text-white font-semibold rounded-lg">
-                  <th className="p-4">Denomination</th>
-                  <th className="p-4">Currency Number</th>
-                  <th className="p-4">Initiator</th>
-                  <th className="p-4">Date Initiated</th>
-                  <th className="p-4">Approver</th>
-                  <th className="p-4">Date Approved</th>
-                  <th className="p-4">User Branch</th>
-                  <th className="p-4"></th>
-                  <th className="p-4"></th>
-                </thead>
-                <tbody>
-                  {rangeData.length > 0 ? (
-                    rangeData.map((note) => {
-                      return (
-                        <tr>
-                          <td className="p-4">{note.DENOMINATION}</td>
-                          <td className="p-4">{note.CURRENCYNUMBER}</td>
-                          <td className="p-4">{note.INITIATOR_BY}</td>
-                          <td className="p-4">{note.INITIATOR_DATE}</td>
-                          <td className="p-4">{note.APPROVED_BY}</td>
-                          <td className="p-4">{note.APPROVE_DATE}</td>
-                          <td className="p-4 flex items-center justify-center">
-                            {note.BRANCH}
-                          </td>
-                        </tr>
-                      );
-                    })
-                  ) : (
-                    <div className="flex items-center justify-center text-xl font-semibold">
-                      No CounterfeitNote Report!
-                    </div>
-                  )}
-                </tbody>
-              </table>
-            </div>
+            <>
+              <div className="flex items-center justify-between">
+                <div className="my-4 font-semibold text-xl underline">
+                  Results From Search
+                </div>
+                <div
+                  onClick={onDownload}
+                  className="flex items-center cursor-pointer h-10 bg-green-600 text-white font-semibold rounded p-2"
+                >
+                  <AiOutlineDownload size={20} />
+                  <span className="pl-2"> Download Report By Range</span>
+                </div>
+              </div>
+              <div className="w-[1080px] 2xl:w-[1190px] flex flex-col items-center justify-center">
+                <table
+                  ref={tableRef}
+                  className="table bg-white text-sm text-left text-black px-4 w-full"
+                >
+                  <thead className="bg-[#2B2E35] text-sm text-white font-semibold rounded-lg">
+                    <th className="p-4">Denomination</th>
+                    <th className="p-4">Currency Number</th>
+                    <th className="p-4">Initiator</th>
+                    <th className="p-4">Date Initiated</th>
+                    <th className="p-4">Approver</th>
+                    <th className="p-4">Date Approved</th>
+                    <th className="p-4">User Branch</th>
+                    <th className="p-4"></th>
+                    <th className="p-4"></th>
+                  </thead>
+                  <tbody>
+                    {rangeData.length > 0 ? (
+                      rangeData.map((note) => {
+                        return (
+                          <tr>
+                            <td className="p-4">{note.DENOMINATION}</td>
+                            <td className="p-4">{note.CURRENCYNUMBER}</td>
+                            <td className="p-4">{note.INITIATOR_BY}</td>
+                            <td className="p-4">{note.INITIATOR_DATE}</td>
+                            <td className="p-4">{note.APPROVED_BY}</td>
+                            <td className="p-4">{note.APPROVE_DATE}</td>
+                            <td className="p-4 flex items-center justify-center">
+                              {note.BRANCH}
+                            </td>
+                          </tr>
+                        );
+                      })
+                    ) : (
+                      <div className="flex items-center justify-center text-xl font-semibold">
+                        No CounterfeitNote Report!
+                      </div>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </>
           ) : (
             <div className="flex flex-col items-center justify-center">
-              <table
-                ref={tableRef}
-                className="table bg-white text-sm text-left text-black px-4 w-full"
-              >
+              <table className="table bg-white text-sm text-left text-black px-4 w-full">
                 <thead className="bg-[#2B2E35] text-sm text-white font-semibold rounded-lg">
                   <th className="p-4">Branch</th>
                   <th className="p-4">Volume</th>

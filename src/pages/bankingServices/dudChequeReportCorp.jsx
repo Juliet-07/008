@@ -228,10 +228,15 @@ const DudChequeReportCorp = () => {
 
   const { onDownload } = useDownloadExcel({
     currentTableRef: tableRef.current,
-    filename: "DudCheque Report",
+    tablePayload: rangeData,
+    filename: "DudCheque Corporate Report",
     sheet: "Corp Report",
   });
 
+  useEffect(() => {
+    getCorpDudCheque();
+    console.log(tableRef.current, "table payload");
+  }, []);
   return (
     <>
       <div className="flex flex-col items-center justify-center">
@@ -299,18 +304,29 @@ const DudChequeReportCorp = () => {
                 Submit
               </button>
             </form>
-            <div
+            {/* <div
               onClick={onDownload}
               className="flex items-center cursor-pointer w-[100px] h-10 bg-green-600 text-white font-semibold rounded p-2"
             >
               <AiOutlineDownload size={20} />
               <span className="pl-2"> as .xlsx</span>
-            </div>
+            </div> */}
           </div>
 
           {buttonClicked ? (
             <>
-              <div className="my-4 font-semibold text-xl underline">Results From Search</div>
+              <div className="flex items-center justify-between">
+                <div className="my-4 font-semibold text-xl underline">
+                  Results From Search
+                </div>
+                <div
+                  onClick={onDownload}
+                  className="flex items-center cursor-pointer h-10 bg-green-600 text-white font-semibold rounded p-2"
+                >
+                  <AiOutlineDownload size={20} />
+                  <span className="pl-2"> Download Report By Range</span>
+                </div>
+              </div>
               <div className="w-[1080px] 2xl:w-[1190px] flex flex-col items-center justify-center">
                 <table
                   ref={tableRef}
@@ -378,12 +394,14 @@ const DudChequeReportCorp = () => {
                               #{dud.amount.toLocaleString()}
                             </td>
                             <td className="p-4">{dud.Initiator_name}</td>
-                            <td className="p-4">{dud.Initiator_Date}</td>
+                            <td className="p-4">{dud.InitiatorDate}</td>
                             <td className="p-4">{dud.Approval_name}</td>
                             <td className="p-4">{dud.Approval_Date}</td>
                             <td className="p-4 flex items-center justify-center">
                               {dud.Initiate_Branch}
                             </td>
+                            <td className="p-4 hidden"></td>
+                            <td className="p-4 hidden"></td>
                             <td className="p-4 hidden">{dud.accountName}</td>
                             <td className="p-4 hidden">{dud.accountBranch}</td>
                             <td className="p-4 hidden">{dud.micrNo}</td>
