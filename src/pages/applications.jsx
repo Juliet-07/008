@@ -11,7 +11,7 @@ import {
 } from "react-icons/bs";
 import { FaSearchDollar, FaLaptopCode, FaMoneyCheck } from "react-icons/fa";
 import { FcCustomerSupport, FcIdea } from "react-icons/fc";
-import { IoPeopleSharp } from "react-icons/io5";
+import { IoPeopleSharp, IoCashOutline } from "react-icons/io5";
 import {
   MdOutlineApproval,
   MdTimeToLeave,
@@ -35,9 +35,9 @@ const Applications = () => {
   // let id = "bsm.branch";
   // let id = "review.hq";
 
-  const [email, setEmail] = useState("rm1@premiumtrustbank.com");
+  // const [email, setEmail] = useState("rm1@premiumtrustbank.com");
   // const [email, setEmail] = useState("tommy.lee@premiumtrustbank.com");
-  // const [email, setEmail] = useState("bsm1@premiumtrustbank.com");
+  const [email, setEmail] = useState("bsm1@premiumtrustbank.com");
   // const [email, setEmail] = useState("compliance1@premiumtrustbank.com");
   // useEffect(() => {
   //   const user = JSON.parse(localStorage.getItem("userInfo"));
@@ -78,6 +78,11 @@ const Applications = () => {
       icon: <BsShieldLockFill size={30} />,
       path: "https://bvnportal.premiumtrustbank.com/",
       title: "BVN Portal",
+    },
+    {
+      icon: <IoCashOutline size={30} />,
+      path: "http://carpwebportal.premiumtrustbank.com:1019/#/",
+      title: "Cash Activity Reporting Portal",
     },
     {
       icon: <BsBank2 size={30} />,
@@ -200,6 +205,8 @@ const Applications = () => {
       }
       if (response.data.result.role === "REVIEWER") {
         return navigate("/applications/counterfeitNoteReport");
+      } else {
+        return alert("You are not allowed to view this page.");
       }
     } catch (error) {
       console.log(error);
@@ -236,6 +243,8 @@ const Applications = () => {
           }
           if (user.data.role === "compliance") {
             return navigate("/pndCompliance");
+          } else {
+            return alert("You are not allowed to view this page.");
           }
         });
     } catch (error) {
@@ -299,7 +308,7 @@ const Applications = () => {
                   <FaMoneyCheck size={30} color="red" />
                 </p>
               </div>
-              <div>
+              {/* <div>
                 <div
                   className="w-[300px] h-20 bg-white flex items-center justify-between rounded-lg m-4 p-4 border border-gray-600 cursor-pointer"
                   onClick={handleUserIdeaHubRoleRoute}
@@ -309,7 +318,7 @@ const Applications = () => {
                     <FcIdea size={30} />
                   </p>
                 </div>
-              </div>
+              </div> */}
 
               <div
                 className="w-[300px] h-20 bg-white flex items-center justify-between rounded-lg m-4 p-4 border border-gray-600 cursor-pointer"
