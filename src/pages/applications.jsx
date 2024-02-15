@@ -28,6 +28,7 @@ const Applications = () => {
   const apiURL = import.meta.env.VITE_REACT_APP_DUDCHEQUE;
   const APP_ID = import.meta.env.VITE_REACT_APP_IDEA_HUB_APP_ID;
   const apiUrlPnd = import.meta.env.VITE_REACT_APP_PND;
+  const userRoleApi = import.meta.env.VITE_REACT_APP_USERROLE;
   const user = JSON.parse(localStorage.getItem("userInfo"));
   const navigate = useNavigate();
   const [showSplash, setShowSplash] = useState(false);
@@ -257,7 +258,7 @@ const Applications = () => {
     // let email = name;
     let email = "Sarah.Omoike";
     let user;
-    let url = `http://192.168.201.57:449/api/UserApplications/getUserRoleByEmail&AppId?AppId=${APP_ID}&email=${email}@premiumtrustbank.com`;
+    let url = `${userRoleApi}/getUserRoleByEmail&AppId?AppId=${APP_ID}&email=${email}@premiumtrustbank.com`;
     try {
       setShowSplash(true);
       const response = await axios.get(url);

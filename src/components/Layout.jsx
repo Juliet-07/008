@@ -17,6 +17,7 @@ import TextSlides from "./TextSlides";
 
 const Layout = ({ children }) => {
   const APP_ID = import.meta.env.VITE_REACT_APP_APP_ID;
+  const userRoleApi = import.meta.env.VITE_REACT_APP_USERROLE;
   const users = JSON.parse(localStorage.getItem("userInfo"));
   const navigate = useNavigate();
   const [open, setOpen] = useState(true);
@@ -107,11 +108,11 @@ const Layout = ({ children }) => {
     // let email = "Damilola.Falonipe"; //implementer
     // let email = "Sarah.Omoike";    //approval-one
     // let email = "Olatunji.Oseni";  //approval-two
-    let email = "Amechi.Ojei";     //approval-three
+    let email = "Amechi.Ojei"; //approval-three
     let user;
     axios
       .get(
-        `http://192.168.201.57:449/api/UserApplications/getUserRoleByEmail&AppId?AppId=${APP_ID}&email=${email}@premiumtrustbank.com`
+        `${userRoleApi}/getUserRoleByEmail&AppId?AppId=${APP_ID}&email=${email}@premiumtrustbank.com`
       )
       .then((response) => {
         console.log(response.data, "User Info AR");
