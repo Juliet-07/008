@@ -26,6 +26,13 @@ import IFS11 from "../assets/Policies/ISP/PTB-ISMS-A532-Intellectual_Property_&_
 import IFS12 from "../assets/Policies/ISP/PTB-ISMS-A706-Guidelines_for_Working_in_Secure_Areas.pdf";
 import IFS13 from "../assets/Policies/ISP/PTB-ISMS-A714-Procedure_for_the_Management_of_Removable_Media.pdf";
 import IFS14 from "../assets/Policies/ISP/PTB-ISMS-5001-Information_Security_Policy.pdf";
+import DATA101 from "../assets/Policies/ISP/PremiumTrust Bank Data Protection Impact Assessment Procedure.pdf";
+import DATA102 from "../assets/Policies/ISP/PremiumTrust Bank Data Protection Policy.pdf";
+import DATA103 from "../assets/Policies/ISP/PremiumTrust Bank  Data Retention Policy.pdf";
+import DATA104 from "../assets/Policies/ISP/PremiumTrust Bank Employee Privacy Policy.pdf";
+import DATA105 from "../assets/Policies/ISP/PremiumTrust Bank Personal Data Breach Notification Procedure.pdf";
+import DATA106 from "../assets/Policies/ISP/PremiumTrust Bank_Privacy Policy.pdf";
+import DATA107 from "../assets/Policies/ISP/PremiumTrust Bank Subject Access Request Procedure.pdf";
 import RM01 from "../assets/Policies/RiskManagement/BUSINESS CONTINUITY POLICY- June 2023.pdf";
 import RM02 from "../assets/Policies/RiskManagement/Corporate Business Continuity Plan - 2023.pdf";
 import RM03 from "../assets/Policies/RiskManagement/Liquidity Risk Management Policy _ 2023.pdf";
@@ -91,6 +98,21 @@ const Policies = () => {
       hasAttested: false,
     },
     {
+      policyName: "Data Protection Impact Assessment Procedure",
+      filePath: DATA101,
+      hasAttested: false,
+    },
+    {
+      policyName: "Data Protection Policy",
+      filePath: DATA102,
+      hasAttested: false,
+    },
+    {
+      policyName: "Data Retention Policy",
+      filePath: DATA103,
+      hasAttested: false,
+    },
+    {
       policyName: "Employee Dating Policy",
       filePath: DATING,
       hasAttested: false,
@@ -98,6 +120,11 @@ const Policies = () => {
     {
       policyName: "Employee Handbook",
       filePath: HANDBOOK,
+      hasAttested: false,
+    },
+    {
+      policyName: "Employee Privacy Policy",
+      filePath: DATA104,
       hasAttested: false,
     },
     {
@@ -178,11 +205,20 @@ const Policies = () => {
       hasAttested: false,
     },
     {
+      policyName: "Personal Data Breach Notification Procedure",
+      filePath: DATA105,
+      hasAttested: false,
+    },
+    {
       policyName: "PTB Cyber Incident Response Plan",
       filePath: IFS01,
       hasAttested: false,
     },
-
+    {
+      policyName: "PremiumTrust Bank Privacy Policy",
+      filePath: DATA106,
+      hasAttested: false,
+    },
     {
       policyName:
         "Procedure for Information Security Labelling and Asset Handling",
@@ -192,6 +228,11 @@ const Policies = () => {
     {
       policyName: "Procedure for the Management of Removable Media",
       filePath: IFS13,
+      hasAttested: false,
+    },
+    {
+      policyName: "Subject Access Request Procedure",
+      filePath: DATA107,
       hasAttested: false,
     },
     {
