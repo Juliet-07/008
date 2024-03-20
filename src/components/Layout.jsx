@@ -102,16 +102,16 @@ const Layout = ({ children }) => {
   };
 
   const handleUserARRoleRoute = () => {
-    // let email = "Christain.Nnabuife"; //user
-    // let email = users.givenname; //supervisor
+    //let email = "Christain.Nnabuife"; //user
+    let email = users.givenname; //supervisor
     //  let email = "Kenneth.Nwanze"; //implementer
     // let email = "Damilola.Falonipe"; //implementer
     // let email = "Sarah.Omoike";    //approval-one
     // let email = "Olatunji.Oseni";  //approval-two
-    let email = "Amechi.Ojei"; //approval-three
+    //let email = "Amechi.Ojei"; //approval-three
     let user;
     axios
-      .get(
+      .post(
         `${userRoleApi}/getUserRoleByEmail&AppId?AppId=${APP_ID}&email=${email}@premiumtrustbank.com`
       )
       .then((response) => {
@@ -119,20 +119,20 @@ const Layout = ({ children }) => {
         user = response.data;
         if (
           user.data === null &&
-          user.responseMessage === "User Not Profiled"
+          user.responseMessage === "User Not Profiled on 1201-AR"
         ) {
           return navigate("/access-requests");
         }
-        if (user.roleDescription === "Supervisor") {
+        if (user.responseValue.roleDescription === "Supervisor") {
           return navigate("/access-requests/supervisorPage");
         }
-        if (user.roleDescription === "ApprovalOne") {
+        if (user.responseValue.roleDescription === "ApprovalOne") {
           return navigate("/access-requests/CISOPage");
         }
-        if (user.roleDescription === "ApprovalTwo") {
+        if (user.responseValue.roleDescription === "ApprovalTwo") {
           return navigate("/access-requests/CCOPage");
         }
-        if (user.roleDescription === "ApprovalThree") {
+        if (user.responseValue.roleDescription === "ApprovalThree") {
           return navigate("/access-requests/CIOPage");
         }
       });
